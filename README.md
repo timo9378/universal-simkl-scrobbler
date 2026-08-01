@@ -1,71 +1,108 @@
 <h1 align="center">
   <br>
-  <img alt="Universal Trakt Scrobbler" src="https://github.com/trakt-tools/universal-trakt-scrobbler/raw/master/src/images/uts-icon-128.png" width="150">
-  <br>
-  Universal Trakt Scrobbler
+  Universal Simkl Scrobbler
   <br>
 </h1>
-<h4 align="center">A universal scrobbler for Trakt.tv.</h4>
+<h4 align="center">A universal scrobbler for Simkl — a fork of <a href="https://github.com/trakt-tools/universal-trakt-scrobbler">Universal Trakt Scrobbler</a> that syncs to Simkl instead of Trakt.</h4>
+
 <p align="center">
-  <a href="https://github.com/trakt-tools/universal-trakt-scrobbler/releases">
-    <img alt="GitHub Release" src="https://img.shields.io/github/release/trakt-tools/universal-trakt-scrobbler.svg">
-  </a>
-	<a href="https://crowdin.com/project/universal-trakt-scrobbler" title="Crowdin" target="_blank">
-		<img src="https://badges.crowdin.net/universal-trakt-scrobbler/localized.svg">
-	</a>
-</p>
-<p align="center">
-  <a href="https://chrome.google.com/webstore/detail/universal-trakt-scrobbler/mbhadeogepkjdjeikcckdkjdjhhkhlid"><img src="https://github.com/trakt-tools/universal-trakt-scrobbler/raw/master/assets/chrome-badge.png" alt="Get the extension on Chrome"></a>
-  <a href="https://addons.mozilla.org/en-US/firefox/addon/universal-trakt-scrobbler"><img src="https://github.com/trakt-tools/universal-trakt-scrobbler/raw/master/assets/firefox-badge.png" alt="Get the extension on Firefox"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <img alt="Status: work in progress" src="https://img.shields.io/badge/status-work%20in%20progress-orange.svg">
 </p>
 
-You can also install the extension manually by downloading the zip for your browser here: https://github.com/trakt-tools/universal-trakt-scrobbler/releases
+> **Status: work in progress — not usable yet.**
+> The Trakt→Simkl backend swap is not implemented. Right now this is an unmodified fork of
+> upstream, made public so the reasoning below is on the record. Don't install this expecting
+> it to work.
 
-### Loading the extension manually in Chrome
+---
 
-1. Unzip `chrome.zip`
-2. Go to chrome://extensions
-3. Enable "Developer mode"
-4. Click "Load unpacked"
-5. Select the folder you unzipped
+## Why this fork exists
 
-### Loading the extension manually in Firefox
+On **2026-07-30**, Trakt merged
+[trakt-web#3057](https://github.com/trakt/trakt-web/pull/3057) —
+`feat(settings): make api application creation vip-only`. The strings it added say it plainly:
 
-1. Go to about:debugging#/runtime/this-firefox
-2. Click "Load temporary addon"
-3. Select `firefox.zip` or, if it's unzipped, select any file in the folder
+> `"Creating new apps requires Trakt VIP"`
+> `"VIP members can register unlimited OAuth applications."`
 
-Extension will be enabled until you restart Firefox.
+That part is a business decision, and a defensible one. A company needs revenue, and gating
+*new* app creation behind a paid tier is a normal thing to do.
 
-### Table of Contents
+What happened alongside it is not that.
 
-- [Loading the extension manually in Chrome](#loading-the-extension-manually-in-chrome)
-- [Loading the extension manually in Firefox](#loading-the-extension-manually-in-firefox)
-- [Table of Contents](#table-of-contents)
-- [What is Universal Trakt Scrobbler?](#what-is-universal-trakt-scrobbler)
-- [Why do I need this extension?](#why-do-i-need-this-extension)
-- [Which streaming services are supported?](#which-streaming-services-are-supported)
-- [How does the extension work?](#how-does-the-extension-work)
-- [Known Issues](#known-issues)
-- [Other Problems](#other-problems)
-- [Help Translate](#help-translate)
-- [Development](#development)
-  - [How to add more streaming services](#how-to-add-more-streaming-services)
-  - [How to add scrobbler/sync to streaming services](#how-to-add-scrobblersync-to-streaming-services)
-- [Credits](#credits)
+**Existing API applications on free accounts were deleted, with no announcement and no
+migration window.** That is not described anywhere in PR #3057 — the PR explicitly says the
+application list stays *"(still readable)"* and that only the create button is gated. But
+integrations that had been running for years stopped, and the accounts behind them could no
+longer recreate what had been removed.
 
-### What is Universal Trakt Scrobbler?
+The failure mode, written out for anyone searching these strings:
 
-An extension that allows you to automatically scrobble TV shows and movies that you are watching, and sync your history, from your favorite streaming services to Trakt.tv.
+```
+POST /oauth/token        → 400  invalid_grant   "session not found"
+POST /oauth/device/code  → 401  invalid_client  "client not found"
+GET  /users/me           → 403
+```
 
-### Why do I need this extension?
+`session not found` means the stored tokens are dead. `client not found` means the application
+itself no longer exists on Trakt's side — so re-authorizing doesn't help, because there is
+nothing left to authorize against.
 
-If you want to scrobble / sync from Netflix, this is the only Trakt.tv [plugin](https://trakt.tv/apps) that does it. In the future, we'll be adding support for more streaming services, so it will also serve as a single extension that works for multiple services.
+Reports of the same thing, all within days of the merge:
 
-### Which streaming services are supported?
+- [forums.trakt.tv — "Problem with API, unauthorized all the sudden"](https://forums.trakt.tv/t/problem-with-api-unauthorized-all-the-sudden/119235) (26 replies)
+- [trakt-web#3061 — "Can't see API apps"](https://github.com/trakt/trakt-web/issues/3061)
+
+A 15-year member with a single app for a decade. Someone who had joined weeks earlier when
+TV Time shut down. As of this writing there is still no official statement on the deletions.
+
+I'm not forking because of the paywall. I'm forking because **the pipeline was removed without
+warning**, and I'd rather not rebuild on something that can do that again.
+
+## What this changes
+
+Exactly one thing: the destination.
+
+```
+upstream    streaming service → extractor → Trakt
+this fork   streaming service → extractor → Simkl
+```
+
+The ~29 streaming-service extractors — the part that actually understands Netflix's internal
+API, Disney+'s player, HBO Max's page structure — are **entirely upstream's work and are not
+being touched**. They live under `src/services/` and have no dependency on the sync target
+(`DisneyplusApi.ts` and `HboMaxApi.ts` reference Trakt zero times). Only the backend adapter
+changes:
+
+| Upstream file | Fate |
+| :--- | :--- |
+| `src/apis/TraktApi.ts` | → `SimklApi.ts` |
+| `src/apis/TraktAuth.ts` | → `SimklAuth.ts` — Simkl has a PIN/device flow and non-expiring tokens, so the refresh-token rotation goes away |
+| `src/apis/TraktScrobble.ts` | → `SimklScrobble.ts` — `/scrobble/start`, `/pause`, `/stop` |
+| `src/apis/TraktSearch.ts` | → `SimklSearch.ts` — Simkl returns imdb/tmdb/tvdb ids directly, so much of the matching heuristics can shrink |
+| `src/apis/TraktSync.ts` | → `SimklSync.ts` |
+| `src/models/TraktItem.ts` | → `SimklItem.ts` |
+| `src/services/**` | **unchanged** |
+
+### A note on Simkl's free tier
+
+Worth stating up front, since the entire point of this fork is not being surprised again.
+
+Simkl has paid tiers, and playback *sessions* (unfinished progress) are retained for 7 days on
+free, 30 on PRO, 90 on VIP. **Finished items are not affected** — `/scrobble/stop` at ≥80%
+progress writes to the permanent watch history. That is the behaviour this fork depends on.
+
+That's an observation about how the API behaves today, not a promise about tomorrow. Simkl is
+also a third party and could make the same call Trakt did. The difference is that this time
+it's written down before building on it.
+
+## Supported streaming services
+
+Inherited from upstream, unchanged. "Scrobble" is live tracking while you watch; "Sync" is
+bulk-importing existing history.
 
 <!-- services-start -->
-<!-- Update this section with `npx trakt-tools dev update-readme` -->
 
 | Streaming Service | Scrobble | Sync | Limitations                      |
 | :---------------: | :------: | :--: | :------------------------------- |
@@ -100,97 +137,49 @@ If you want to scrobble / sync from Netflix, this is the only Trakt.tv [plugin](
 
 <!-- services-end -->
 
-### How does the extension work?
+Simkl's own Chrome extension covers Netflix and Crunchyroll. Everything else in this table —
+Disney+, HBO Max, Prime, and the rest — is why this fork is worth the effort.
 
-It extracts information about the TV shows / movies that you are watching / have watched by scraping the page or using the stremaing service API and sends the data to Trakt using the [Trakt API](https://trakt.docs.apiary.io/).
+## How the extension works
 
-### Known Issues
+It extracts information about the TV shows / movies you are watching or have watched, by
+scraping the page or using the streaming service's own API, and sends it to Simkl using the
+[Simkl API](https://simkl.docs.apiary.io/).
 
-- You might have to disable the "automatic mode" in the Temporary Containers extension while logging in, if you use it.
-- Make sure you are logged into streaming services before trying to sync history content.
+## Known issues
 
-### Other Problems
+- You might have to disable "automatic mode" in the Temporary Containers extension while
+  logging in, if you use it.
+- Make sure you are logged into the streaming service before trying to sync history.
 
-If you find any other problems or have suggestions or questions, feel free to [open an issue](https://github.com/trakt-tools/universal-trakt-scrobbler/issues/new).
+## Development
 
-### Help Translate
+Build tooling is unchanged from upstream — see
+[upstream's README](https://github.com/trakt-tools/universal-trakt-scrobbler#development).
+The one difference is the credentials step: register an app at
+[Simkl's developer settings](https://simkl.com/settings/developer/) instead of Trakt, and put
+the client id / secret in `.env`.
 
-Help us translate the extension through Crowdin at https://crowdin.com/project/universal-trakt-scrobbler. You'll need to create a Crowdin account (you can sign in with your GitHub account). Then select the language you wish to contribute to and start translating (don't forget to save your translations). If a language isn't available yet, open an issue [here](https://github.com/trakt-tools/universal-trakt-scrobbler/issues/new?assignees=trakt-tools-bot&labels=new+language&template=new-language.md&title=Add+new+language%3A+%5BLANGUAGE%5D).
+New streaming services are still added with `npx trakt-tools dev create-service`, and their
+extractors are independent of the sync target.
 
-You can also vote for translations, which helps confirm good translations and flag inaccurate ones.
+## Credits
 
-If you want to get credit on GitHub for the translations, make sure your Crowdin username is the same as the GitHub one, or similar, so we know it's you. Once the PR is merged, you'll appear as one of the contributors in the commit. Example:
+**All of the hard part is upstream's.**
+[Universal Trakt Scrobbler](https://github.com/trakt-tools/universal-trakt-scrobbler) by
+[trakt-tools](https://github.com/trakt-tools) — 29 streaming services' worth of
+reverse-engineered extraction logic, a clean `ServiceApi` abstraction that makes this fork a
+backend swap rather than a rewrite, and years of keeping up with site redesigns. This fork
+exists because that work deserves to keep running somewhere that won't delete it.
 
-![Screenshot 2022-03-11 100844](https://user-images.githubusercontent.com/25509361/157872624-e5f70050-8e29-4f21-b0b6-0e2e274c3ce2.png)
+Upstream is in turn based on [traktflix](https://github.com/tegon/traktflix) by
+[tegon](https://github.com/tegon).
 
-**For reviewers:**
-
-Never delete the `translations` branch after merging PRs from Crowdin, as Crowdin uses it to sync changes. When merging PRs, make sure to change the generic "New Crowdin updates" title to a more specific title detailing exactly which languages were updated.
-
-### Development
-
-1. Create an application in the [Trakt API](https://trakt.tv/oauth/applications/new) (don't forget to check the `/scrobble` permission).
-2. In `Redirect uri:`, put `https://trakt.tv/apps`.
-3. In `Javascript (cors) origins:`, put `moz-extension://` and `chrome-extension://`.
-4. Copy the `.env.example` example file and change the Trakt.tv credentials. Make sure to also set the extension ID to an arbitrary but unique string, otherwise some browser features might not be available to the extension. The "CHROME_EXTENSION_KEY" can remain empty.
-
-```bash
-cp .env.example .env
-```
-
-5. Use [nvm](https://github.com/creationix/nvm) to run the correct version of Node.js. You may need to install it with `nvm install "lts/*"`
-
-```bash
-nvm use
-```
-
-6. Install the dependencies. You may need to install pnpm with `npm install -g pnpm`
-
-```bash
-pnpm install
-```
-
-- To run in development mode:
-
-```bash
-pnpm start
-```
-
-- In your browser's extension page in development mode, load the extension from `src/build/{browser}`
-
-- To get the build version for development mode (does not watch files):
-
-```bash
-pnpm run build-dev
-```
-
-- To get the build version for production mode (generates app.zip, ready for deployment):
-
-```bash
-pnpm run build
-pnpm run zip
-```
-
-#### How to add more streaming services
-
-- Run `npx trakt-tools dev create-service`. It will prompt you a few questions about the service and automatically generate all the necessary files. If you want to provide all the information at once without being prompted, run `npx trakt-tools dev create-service --help` to see the options.
-- Go to the generated files and adjust them accordingly. You can see the files of the other services for some reference.
-
-#### How to add scrobbler/sync to streaming services
-
-- If a service is missing either the scrobbler or the sync function, you can run `npx trakt-tools dev update-service` to automatically generate all the missing files.
-
-### Credits
-
-This extension is based on [traktflix](https://github.com/tegon/traktflix), the original Netflix sync developed by [tegon](https://github.com/tegon), which was discontinued in favor of Universal Trakt Sync.
-
-<h3 align="center">
-  <img alt="TMDb API" src="https://github.com/trakt-tools/universal-trakt-scrobbler/raw/master/assets/tmdb-api-logo.png" width="150">
-  <img alt="Trakt API" src="https://github.com/trakt-tools/universal-trakt-scrobbler/raw/master/assets/trakt-api-logo.png" width="150">
-</h3>
+Translations for upstream are managed on
+[Crowdin](https://crowdin.com/project/universal-trakt-scrobbler) — contribute there, not here,
+so the whole ecosystem benefits.
 
 This product uses the TMDb API, but is not endorsed or certified by TMDb.
+This product uses the Simkl API.
 
-This product uses the Trakt.tv API.
-
-[LICENSE](LICENSE)
+[LICENSE](LICENSE) — MIT, same as upstream. Original copyright (c) 2020 trakt-tools is retained.
