@@ -24,9 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 不指定 version：package.json 的 packageManager 已經釘死了版本，兩邊都給
+      # 會讓 action-setup@v4 直接報 "Multiple versions of pnpm specified" 而中止。
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
