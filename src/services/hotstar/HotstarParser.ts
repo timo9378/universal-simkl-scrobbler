@@ -59,7 +59,7 @@ class _HotstarParser extends ScrobbleParser {
 	/**
 	 * The base class only re-parses the item once the cached one is cleared, which
 	 * normally happens on navigation via the controller's `stopScrobble()`. That clearing
-	 * is skipped when an item never matched on Trakt, and JioHotstar advances between
+	 * is skipped when an item never matched on Simkl, and JioHotstar advances between
 	 * episodes through in-app navigation, so a stale item could otherwise stick and block
 	 * detection of the new content. Drop it as soon as the URL's content id changes so the
 	 * next tick re-parses what's actually playing.

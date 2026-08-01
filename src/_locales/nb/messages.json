@@ -3,7 +3,7 @@
 		"message": "Om"
 	},
 	"aboutMessage": {
-		"message": "Send aktiviteten fra dine favorittstrømmetjenester til Trakt.tv!"
+		"message": "Send aktiviteten fra dine favorittstrømmetjenester til Simkl!"
 	},
 	"add": {
 		"message": "Legg til"
@@ -27,7 +27,7 @@
 		"message": "Dersom det oppstår en feil, kan utviklerne få informasjon om det, slik at det er enklere å feilsøke, fikse og forbedre utvidelsen. Informasjonen som sendes inkluderer: Når feilen inntraff, omstendighetene rundt feilen, navn og versjonsnummeret på nettleseren, og navnet på operativsystemet. Dataene blir ikke delt videre med andre tjenester."
 	},
 	"appDescription": {
-		"message": "En universell sync-tjeneste for Trakt.tv."
+		"message": "En universell sync-tjeneste for Simkl."
 	},
 	"autoSync": {
 		"message": "Automatisk synkronisering"
@@ -121,7 +121,7 @@
 		"message": "Fikk ikke til å korrigere element."
 	},
 	"correctionDialogContent": {
-		"message": "Sett inn korrekt URL til Trakt-elementet for $TITLE$ i feltet nedenfor.",
+		"message": "Sett inn korrekt URL til Simkl-elementet for $TITLE$ i feltet nedenfor.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Skriv inn riktig Trakt URL til $TITLE$ i feltet nedenfor, eller bruk en av forslagene.",
+		"message": "Skriv inn riktig Simkl URL til $TITLE$ i feltet nedenfor, eller bruk en av forslagene.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "ADVARSEL: Du retter nå et element som allerede har blitt synkronisert. Dersom du fortsetter blir den tidligere synkroniserte elementet fjernet fra Trakt-historikken din."
+		"message": "ADVARSEL: Du retter nå et element som allerede har blitt synkronisert. Dersom du fortsetter blir den tidligere synkroniserte elementet fjernet fra Simkl-historikken din."
 	},
 	"couldNotScrobble": {
 		"message": "Scrobbling feilet."
@@ -158,13 +158,13 @@
 		"message": "Noe har gått galt. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Ser ut som du ikke er logget inn. Forsøk å åpne utvidelsen og logg inn med Trakt.tv kontoen din."
+		"message": "Ser ut som du ikke er logget inn. Forsøk å åpne utvidelsen og logg inn med Simkl kontoen din."
 	},
 	"errorNotificationNotFound": {
-		"message": "Oops! Vi klarte ikke å finne det du ser på hos Trakt.tv. Legg gjerne igjen en feilrapport med hva du ser på hos github."
+		"message": "Oops! Vi klarte ikke å finne det du ser på hos Simkl. Legg gjerne igjen en feilrapport med hva du ser på hos github."
 	},
 	"errorNotificationServers": {
-		"message": "Vi klarte ikke å nå Trakt.tv serverene. Vi forsøker å fikse det, vennligst prøv igjen senere."
+		"message": "Vi klarte ikke å nå Simkl serverene. Vi forsøker å fikse det, vennligst prøv igjen senere."
 	},
 	"from": {
 		"message": "fra"
@@ -191,7 +191,7 @@
 		"message": "Klarte ikke å synkronisere historikken."
 	},
 	"historySyncSuccess": {
-		"message": "$EPISODES$ episoder og $MOVIES$ filmer ble sendt til trakt.",
+		"message": "$EPISODES$ episoder og $MOVIES$ filmer ble sendt til simkl.",
 		"placeholders": {
 			"episodes": {
 				"content": "$1"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Hjem"
 	},
-	"invalidTraktUrl": {
-		"message": "Lim inn en gyldig URL til Trakt!"
+	"invalidSimklUrl": {
+		"message": "Lim inn en gyldig URL til Simkl!"
 	},
 	"isThisWrong": {
 		"message": "Er dette feil?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Deaktiveres dette valget lastes ikke bilder for scrobbling-elementer og historie-elementene. Dette er nyttig for langsommere Internett-forbindelser, hvor innlasting av bilder gjør utvidelsen treg."
 	},
-	"loadTraktHistoryError": {
-		"message": "Klarte ikke å laste inn Trakt historikken."
+	"loadSimklHistoryError": {
+		"message": "Klarte ikke å laste inn Simkl historikken."
 	},
 	"loadingHistory": {
 		"message": "Laster inn historikk"
@@ -244,7 +244,10 @@
 		"message": "Laster inn forslag"
 	},
 	"login": {
-		"message": "Logg inn med Trakt.tv"
+		"message": "Logg inn med Simkl"
+	},
+	"enterPinAt": {
+		"message": "Enter this code at"
 	},
 	"logout": {
 		"message": "Logg ut"

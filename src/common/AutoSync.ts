@@ -1,5 +1,5 @@
 import { getServiceApi, ServiceApi } from '@apis/ServiceApi';
-import { TraktSync } from '@apis/TraktSync';
+import { SimklSync } from '@apis/SimklSync';
 import { BrowserAction } from '@common/BrowserAction';
 import { StorageValuesOptions } from '@common/BrowserStorage';
 import { I18N } from '@common/I18N';
@@ -99,17 +99,17 @@ class _AutoSync {
 					(item) => item.progress >= Shared.storage.syncOptions.minPercentageWatched
 				);
 				if (items.length > 0) {
-					items = await ServiceApi.loadTraktHistory(items, undefined, 'autoSync');
+					items = await ServiceApi.loadSimklHistory(items, undefined, 'autoSync');
 
-					const foundItems = items.filter((item) => item.trakt);
+					const foundItems = items.filter((item) => item.simkl);
 					const itemsToSync = foundItems.filter(
-						(item) => !item.trakt?.watchedAt && !item.isMissingWatchedDate()
+						(item) => !item.simkl?.watchedAt && !item.isMissingWatchedDate()
 					);
 					if (itemsToSync.length > 0) {
 						for (const itemToSync of itemsToSync) {
 							itemToSync.isSelected = true;
 						}
-						await TraktSync.sync(store, itemsToSync, 'autoSync');
+						await SimklSync.sync(store, itemsToSync, 'autoSync');
 					}
 
 					items = store.data.items.filter(

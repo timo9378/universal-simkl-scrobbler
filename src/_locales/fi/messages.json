@@ -3,7 +3,7 @@
 		"message": "Tietoja"
 	},
 	"aboutMessage": {
-		"message": "Lähetä suoratoistokatselusi Trakt.tv-kokoelmaasi!"
+		"message": "Lähetä suoratoistokatselusi Simkl-kokoelmaasi!"
 	},
 	"add": {
 		"message": "Lisää"
@@ -27,7 +27,7 @@
 		"message": "Asetuksen ollessa käytössä, kehittäjälle kerätään tietoa ja lähetetään vikailmoituksia, jotta viat voidaan korjata nopeammin ja laajennusta parantaa. Lähetettävät tiedot: vian tapahtumisaika, vian jäljitettävyystieto, selaimen nimi ja versio sekä käyttöjärjestelmän nimi. Tietoja ei jaeta minkään muun palvelun kanssa."
 	},
 	"appDescription": {
-		"message": "Universaali Trakt.tv-palvelun synkronointi."
+		"message": "Universaali Simkl-palvelun synkronointi."
 	},
 	"autoSync": {
 		"message": "Automaattisynkronointi"
@@ -121,7 +121,7 @@
 		"message": "Kohteen korjaus epäonnistui."
 	},
 	"correctionDialogContent": {
-		"message": "Syötä alle kohteen $TITLE$ oikea Trakt-URL.",
+		"message": "Syötä alle kohteen $TITLE$ oikea Simkl-URL.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Syötä alle kohteen $TITLE$ oikea Trakt-URL tai valitse ehdotuksista.",
+		"message": "Syötä alle kohteen $TITLE$ oikea Simkl-URL tai valitse ehdotuksista.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "VAROITUS: Olet korjaamassa kohdetta, joka on jo synkronoitu. Jos jatkat, poistetaan aiemmin synkronoitu kohde Trakt-historiasta."
+		"message": "VAROITUS: Olet korjaamassa kohdetta, joka on jo synkronoitu. Jos jatkat, poistetaan aiemmin synkronoitu kohde Simkl-historiasta."
 	},
 	"couldNotScrobble": {
 		"message": "Ei voitu kirjata."
@@ -158,13 +158,13 @@
 		"message": "Tapahtui virhe. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Et näytä olevan kirjautuneena. Avaa laajennus ja kirjaudu Trakt-tilillesi."
+		"message": "Et näytä olevan kirjautuneena. Avaa laajennus ja kirjaudu Simkl-tilillesi."
 	},
 	"errorNotificationNotFound": {
-		"message": "Voi ei! katseltua kohdetta ei löytynyt Traktista. Lähetä ilmoitus, joka sisältää kohteen nimen."
+		"message": "Voi ei! katseltua kohdetta ei löytynyt Simklista. Lähetä ilmoitus, joka sisältää kohteen nimen."
 	},
 	"errorNotificationServers": {
-		"message": "Trakt-palvelinten kanssa ei voitu viestiä. Pyrimme korjaamaan ongelman, yritä myöhemmin uudelleen."
+		"message": "Simkl-palvelinten kanssa ei voitu viestiä. Pyrimme korjaamaan ongelman, yritä myöhemmin uudelleen."
 	},
 	"from": {
 		"message": "from"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Etusivu"
 	},
-	"invalidTraktUrl": {
-		"message": "Syötä kelvollinen Trakt-URL!"
+	"invalidSimklUrl": {
+		"message": "Syötä kelvollinen Simkl-URL!"
 	},
 	"isThisWrong": {
 		"message": "Onko tämä väärin?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Asetuksen ollessa pois käytöstä, ei seurattavan kohteen ja historian kohteiden kuvia ladata. Tämä on hyödyllistä hitaiden yhteyksien kanssa, jolloin kuvalataukset hidastavat laajennusta merkittävästi."
 	},
-	"loadTraktHistoryError": {
-		"message": "Trakt-historian lataus epäonnistui."
+	"loadSimklHistoryError": {
+		"message": "Simkl-historian lataus epäonnistui."
 	},
 	"loadingHistory": {
 		"message": "Historiaa ladataan"
@@ -244,7 +244,10 @@
 		"message": "Ehdotuksia ladataan"
 	},
 	"login": {
-		"message": "Kirjaudu Trakt.tv-tunnuksella"
+		"message": "Kirjaudu Simkl-tunnuksella"
+	},
+	"enterPinAt": {
+		"message": "Enter this code at"
 	},
 	"logout": {
 		"message": "Kirjaudu ulos"

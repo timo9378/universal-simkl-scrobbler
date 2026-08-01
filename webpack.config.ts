@@ -104,7 +104,8 @@ const getWebpackConfig = (env: Environment): webpack.Configuration => {
 		devtool: env.production ? false : 'source-map',
 		entry: {
 			background: ['./src/modules/background/background.ts'],
-			trakt: ['./src/modules/content/trakt/trakt.ts'],
+			// No login content script: Simkl's PIN flow has no redirect to intercept,
+			// unlike Trakt's OAuth callback. See SimklAuth.
 			popup: ['./src/modules/popup/popup.tsx'],
 			history: ['./src/modules/history/history.tsx'],
 			options: ['./src/modules/options/options.tsx'],
@@ -174,7 +175,7 @@ const getWebpackConfig = (env: Environment): webpack.Configuration => {
 				new plugins.html({
 					template: './src/templates/main.pug',
 					templateParameters: {
-						title: `${titlePrefix}Universal Trakt Scrobbler - Popup`,
+						title: `${titlePrefix}Universal Simkl Scrobbler - Popup`,
 						script: 'popup.js',
 					},
 					filename: 'popup.html',
@@ -183,7 +184,7 @@ const getWebpackConfig = (env: Environment): webpack.Configuration => {
 				new plugins.html({
 					template: './src/templates/main.pug',
 					templateParameters: {
-						title: `${titlePrefix}Universal Trakt Scrobbler - History`,
+						title: `${titlePrefix}Universal Simkl Scrobbler - History`,
 						script: 'history.js',
 					},
 					filename: 'history.html',
@@ -192,7 +193,7 @@ const getWebpackConfig = (env: Environment): webpack.Configuration => {
 				new plugins.html({
 					template: './src/templates/main.pug',
 					templateParameters: {
-						title: `${titlePrefix}Universal Trakt Scrobbler - Options`,
+						title: `${titlePrefix}Universal Simkl Scrobbler - Options`,
 						script: 'options.js',
 					},
 					filename: 'options.html',
@@ -201,7 +202,7 @@ const getWebpackConfig = (env: Environment): webpack.Configuration => {
 				new plugins.html({
 					template: './src/templates/main.pug',
 					templateParameters: {
-						title: `${titlePrefix}Universal Trakt Scrobbler - Kino.pub Auth`,
+						title: `${titlePrefix}Universal Simkl Scrobbler - Kino.pub Auth`,
 						script: 'kino-pub-auth.js',
 					},
 					filename: 'kino-pub-auth.html',
@@ -236,20 +237,16 @@ const getManifest = (browserName: string, isDev: boolean): string => {
 		key?: string;
 		optional_host_permissions?: string[];
 	} = {
-		name: isDev ? '[dev] Universal Trakt Scrobbler' : 'Universal Trakt Scrobbler',
+		name: isDev ? '[dev] Universal Simkl Scrobbler' : 'Universal Simkl Scrobbler',
 		version: packageJson.version,
 		description: '__MSG_appDescription__',
 		icons: {
 			16: 'images/uts-icon-16.png',
 			128: 'images/uts-icon-128.png',
 		},
-		content_scripts: [
-			{
-				js: ['trakt.js'],
-				// Trakt redirects oauth callback from trakt.tv/apps to app.trakt.tv
-				matches: ['*://*.trakt.tv/apps*', '*://app.trakt.tv/*'],
-			},
-		],
+		// Upstream injected a content script on trakt.tv to catch the OAuth callback.
+		// Simkl's PIN flow has no callback, so the only content scripts left are the
+		// per-service ones added below.
 		default_locale: 'en',
 	};
 	switch (browserName) {
@@ -265,19 +262,17 @@ const getManifest = (browserName: string, isDev: boolean): string => {
 					.map((service) => service.hostPatterns)
 					.flat(),
 			];
-			manifest.permissions = ['alarms', 'identity', 'scripting', 'storage', 'unlimitedStorage'];
-			manifest.host_permissions = [
-				'*://*.trakt.tv/*',
-				'*://*.themoviedb.org/*',
-				'*://*.uts.rafaelgomes.xyz/*',
-			];
+			// No `identity`: Simkl's PIN flow never calls `launchWebAuthFlow`, so the
+			// permission would be requested from the user for nothing. See SimklAuth.
+			manifest.permissions = ['alarms', 'scripting', 'storage', 'unlimitedStorage'];
+			manifest.host_permissions = ['*://*.simkl.com/*', '*://*.themoviedb.org/*'];
 			manifest.action = {
 				default_icon: {
 					19: 'images/uts-icon-19.png',
 					38: 'images/uts-icon-38.png',
 				},
 				default_popup: 'popup.html',
-				default_title: isDev ? '[dev] Universal Trakt Scrobbler' : 'Universal Trakt Scrobbler',
+				default_title: isDev ? '[dev] Universal Simkl Scrobbler' : 'Universal Simkl Scrobbler',
 			};
 			if (process.env.CHROME_EXTENSION_KEY) {
 				manifest.key = process.env.CHROME_EXTENSION_KEY;
@@ -301,14 +296,13 @@ const getManifest = (browserName: string, isDev: boolean): string => {
 					.map((service) => service.hostPatterns)
 					.flat(),
 			];
+			// No `identity` — see the Chrome branch above.
 			manifest.permissions = [
 				'alarms',
-				'identity',
 				'storage',
 				'unlimitedStorage',
-				'*://*.trakt.tv/*',
+				'*://*.simkl.com/*',
 				'*://*.themoviedb.org/*',
-				'*://*.uts.rafaelgomes.xyz/*',
 			];
 			manifest.browser_action = {
 				default_icon: {
@@ -316,7 +310,7 @@ const getManifest = (browserName: string, isDev: boolean): string => {
 					38: 'images/uts-icon-38.png',
 				},
 				default_popup: 'popup.html',
-				default_title: isDev ? '[dev] Universal Trakt Scrobbler' : 'Universal Trakt Scrobbler',
+				default_title: isDev ? '[dev] Universal Simkl Scrobbler' : 'Universal Simkl Scrobbler',
 			};
 			// Uncomment this to connect to react-devtools
 			// manifest.content_security_policy =

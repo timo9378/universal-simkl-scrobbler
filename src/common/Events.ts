@@ -1,4 +1,4 @@
-import { TraktSearchItem } from '@apis/TraktSearch';
+import { SimklSearchItem } from '@apis/SimklSearch';
 import {
 	ScrobblingDetails,
 	StorageValuesOptions,
@@ -7,7 +7,7 @@ import {
 import { DispatchEventMessage, Messaging } from '@common/Messaging';
 import { Shared } from '@common/Shared';
 import { ScrobbleItem, ScrobbleItemValues } from '@models/Item';
-import { TraktItemValues } from '@models/TraktItem';
+import { SimklItemValues } from '@models/SimklItem';
 import { AlertColor } from '@mui/material';
 import { SyncStore } from '@stores/SyncStore';
 import { ReactNode } from 'react';
@@ -37,7 +37,7 @@ export interface EventData {
 	SYNC_OPTIONS_CHANGE: PartialDeep<StorageValuesSyncOptions>;
 	SYNC_STORE_RESET: SuccessData;
 	SERVICE_HISTORY_LOAD_ERROR: ErrorData;
-	TRAKT_HISTORY_LOAD_ERROR: ErrorData;
+	SIMKL_HISTORY_LOAD_ERROR: ErrorData;
 	HISTORY_SYNC_SUCCESS: HistorySyncSuccessData;
 	HISTORY_SYNC_ERROR: ErrorData;
 	REQUESTS_CANCEL: RequestsCancelData;
@@ -64,7 +64,7 @@ export interface LoginSuccessData {
 }
 
 export interface ScrobbleSuccessData {
-	item?: TraktItemValues;
+	item?: SimklItemValues;
 	scrobbleType: number;
 }
 
@@ -73,7 +73,7 @@ export type ScrobbleErrorData = ScrobbleSuccessData & {
 };
 
 export interface SearchSuccessData {
-	searchItem: TraktSearchItem;
+	searchItem: SimklSearchItem;
 }
 
 export interface SearchErrorData {

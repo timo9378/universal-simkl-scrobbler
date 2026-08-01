@@ -3,7 +3,7 @@
 		"message": "关于"
 	},
 	"aboutMessage": {
-		"message": "将您最喜欢的流媒体服务活动发送到Trakt.tv！"
+		"message": "将您最喜欢的流媒体服务活动发送到Simkl！"
 	},
 	"add": {
 		"message": "新增"
@@ -27,7 +27,7 @@
 		"message": "启用此选项后，每当出现Bug时，有关信息将会收集并发送，可以使我们更快地修复并改进扩展。 此信息包括：Bug发生时间，Bug具体溯源， 您的浏览器名称版本与操作系统的名称。 此数据不与任何其他服务共享。"
 	},
 	"appDescription": {
-		"message": "Trakt.tv的通用同步。"
+		"message": "Simkl的通用同步。"
 	},
 	"autoSync": {
 		"message": "自动同步"
@@ -121,7 +121,7 @@
 		"message": "更正条目失败。"
 	},
 	"correctionDialogContent": {
-		"message": "在下框为 $TITLE$ 输入正确的Trakt链接",
+		"message": "在下框为 $TITLE$ 输入正确的Simkl链接",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "在下框为 $TITLE$ 输入正确的Trakt链接或选择建议链接。",
+		"message": "在下框为 $TITLE$ 输入正确的Simkl链接或选择建议链接。",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "警告：您正在更正一个已经同步的条目。如果您继续，先前同步的条目将从您的Trakt历史中删除。"
+		"message": "警告：您正在更正一个已经同步的条目。如果您继续，先前同步的条目将从您的Simkl历史中删除。"
 	},
 	"couldNotScrobble": {
 		"message": "无法刮削。"
@@ -158,13 +158,13 @@
 		"message": "发生了一个错误 :("
 	},
 	"errorNotificationLogin": {
-		"message": "您似乎没有登录。请打开扩展并使用您的Trakt账户登录。"
+		"message": "您似乎没有登录。请打开扩展并使用您的Simkl账户登录。"
 	},
 	"errorNotificationNotFound": {
-		"message": "糟糕！我们找不到你在Trakt中正在观看的条目。请留下带有条目标题的反馈。"
+		"message": "糟糕！我们找不到你在Simkl中正在观看的条目。请留下带有条目标题的反馈。"
 	},
 	"errorNotificationServers": {
-		"message": "我们无法连接Trakt服务器。正在修复，请稍后再试。"
+		"message": "我们无法连接Simkl服务器。正在修复，请稍后再试。"
 	},
 	"from": {
 		"message": "从"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "首页"
 	},
-	"invalidTraktUrl": {
-		"message": "请输入有效的Trakt地址！"
+	"invalidSimklUrl": {
+		"message": "请输入有效的Simkl地址！"
 	},
 	"isThisWrong": {
 		"message": "这是错误吗？"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "禁用此选项后，将不会加载刮削条目和历史项目的图像。 这有助于提高连接速度，加载图像会显著减缓扩展运行速度。"
 	},
-	"loadTraktHistoryError": {
-		"message": "加载Trakt 历史记录失败。"
+	"loadSimklHistoryError": {
+		"message": "加载Simkl 历史记录失败。"
 	},
 	"loadingHistory": {
 		"message": "正在加载历史记录"
@@ -244,7 +244,10 @@
 		"message": "正在加载建议"
 	},
 	"login": {
-		"message": "使用 Trakt.tv 账户登录"
+		"message": "使用 Simkl 账户登录"
+	},
+	"enterPinAt": {
+		"message": "在以下网址输入此代码"
 	},
 	"logout": {
 		"message": "注销"

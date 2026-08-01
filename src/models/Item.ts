@@ -1,17 +1,17 @@
 import { Suggestion } from '@apis/CorrectionApi';
 import { Shared } from '@common/Shared';
 import {
-	TraktEpisodeItem,
-	TraktEpisodeItemParams,
-	TraktEpisodeItemValues,
-	TraktItem,
-	TraktMovieItem,
-	TraktMovieItemParams,
-	TraktMovieItemValues,
-	TraktShowItem,
-	TraktShowItemParams,
-	TraktShowItemValues,
-} from '@models/TraktItem';
+	SimklEpisodeItem,
+	SimklEpisodeItemParams,
+	SimklEpisodeItemValues,
+	SimklItem,
+	SimklMovieItem,
+	SimklMovieItemParams,
+	SimklMovieItemValues,
+	SimklShowItem,
+	SimklShowItemParams,
+	SimklShowItemValues,
+} from '@models/SimklItem';
 
 // We use this to correct known wrong titles.
 const correctTitles: Record<string, string> = {
@@ -61,30 +61,30 @@ export interface EpisodeItemValues extends BaseItemValues {
 	 */
 	isAbsolute?: boolean;
 	show: ShowItemValues;
-	trakt?: TraktEpisodeItemValues | null;
+	simkl?: SimklEpisodeItemValues | null;
 }
 
-export type EpisodeItemParams = Omit<EpisodeItemValues, 'type' | 'show' | 'trakt'> & {
+export type EpisodeItemParams = Omit<EpisodeItemValues, 'type' | 'show' | 'simkl'> & {
 	show: Omit<ShowItemValues, 'type'>;
-	trakt?: TraktEpisodeItemParams | null;
+	simkl?: SimklEpisodeItemParams | null;
 };
 
 export interface ShowItemValues extends BaseItemValues {
 	type: 'show';
-	trakt?: TraktShowItemValues | null;
+	simkl?: SimklShowItemValues | null;
 }
 
-export type ShowItemParams = Omit<ShowItemValues, 'type' | 'trakt'> & {
-	trakt?: TraktShowItemParams | null;
+export type ShowItemParams = Omit<ShowItemValues, 'type' | 'simkl'> & {
+	simkl?: SimklShowItemParams | null;
 };
 
 export interface MovieItemValues extends BaseItemValues {
 	type: 'movie';
-	trakt?: TraktMovieItemValues | null;
+	simkl?: SimklMovieItemValues | null;
 }
 
-export type MovieItemParams = Omit<MovieItemValues, 'type' | 'trakt'> & {
-	trakt?: TraktMovieItemParams | null;
+export type MovieItemParams = Omit<MovieItemValues, 'type' | 'simkl'> & {
+	simkl?: SimklMovieItemParams | null;
 };
 
 abstract class BaseItem implements BaseItemValues {
@@ -100,7 +100,7 @@ abstract class BaseItem implements BaseItemValues {
 	suggestions?: Suggestion[] | null;
 	imageUrl?: string | null;
 	isLoading: boolean;
-	trakt?: TraktItem | null;
+	simkl?: SimklItem | null;
 
 	constructor(values: BaseItemValues) {
 		this.serviceId = values.serviceId;
@@ -149,22 +149,22 @@ abstract class BaseItem implements BaseItemValues {
 
 	doHide() {
 		return (
-			(Shared.storage.syncOptions.hideSynced && this.trakt && !!this.trakt.watchedAt) ||
+			(Shared.storage.syncOptions.hideSynced && this.simkl && !!this.simkl.watchedAt) ||
 			this.progress < Shared.storage.syncOptions.minPercentageWatched
 		);
 	}
 
 	isSelectable() {
-		return !this.isLoading && !!this.trakt && !this.trakt.watchedAt && !this.doHide();
+		return !this.isLoading && !!this.simkl && !this.simkl.watchedAt && !this.doHide();
 	}
 
 	isMissingWatchedDate() {
 		const { addWithReleaseDate, addWithReleaseDateMissing } = Shared.storage.syncOptions;
 		if (addWithReleaseDate) {
 			if (addWithReleaseDateMissing) {
-				return !this.watchedAt && !this.trakt?.releaseDate;
+				return !this.watchedAt && !this.simkl?.releaseDate;
 			}
-			return !this.trakt?.releaseDate;
+			return !this.simkl?.releaseDate;
 		}
 		return !this.watchedAt;
 	}
@@ -173,9 +173,9 @@ abstract class BaseItem implements BaseItemValues {
 		const { addWithReleaseDate, addWithReleaseDateMissing } = Shared.storage.syncOptions;
 		if (addWithReleaseDate) {
 			if (addWithReleaseDateMissing) {
-				return this.watchedAt ?? this.trakt?.releaseDate;
+				return this.watchedAt ?? this.simkl?.releaseDate;
 			}
-			return this.trakt?.releaseDate;
+			return this.simkl?.releaseDate;
 		}
 		return this.watchedAt;
 	}
@@ -194,7 +194,7 @@ export class EpisodeItem extends BaseItem implements EpisodeItemValues {
 	number: number;
 	isAbsolute?: boolean;
 	show: ShowItem;
-	trakt?: TraktEpisodeItem | null;
+	simkl?: SimklEpisodeItem | null;
 
 	constructor(values: EpisodeItemParams) {
 		super(values);
@@ -202,7 +202,7 @@ export class EpisodeItem extends BaseItem implements EpisodeItemValues {
 		this.number = values.number;
 		this.isAbsolute = values.isAbsolute;
 		this.show = new ShowItem(values.show);
-		this.trakt = values.trakt && new TraktEpisodeItem(values.trakt);
+		this.simkl = values.simkl && new SimklEpisodeItem(values.simkl);
 	}
 
 	save(): EpisodeItemValues {
@@ -213,7 +213,7 @@ export class EpisodeItem extends BaseItem implements EpisodeItemValues {
 			number: this.number,
 			isAbsolute: this.isAbsolute,
 			show: this.show.save(),
-			trakt: this.trakt?.save(),
+			simkl: this.simkl?.save(),
 		};
 	}
 
@@ -238,18 +238,18 @@ export class EpisodeItem extends BaseItem implements EpisodeItemValues {
 
 export class ShowItem extends BaseItem implements ShowItemValues {
 	type = 'show' as const;
-	trakt?: TraktShowItem | null;
+	simkl?: SimklShowItem | null;
 
 	constructor(values: ShowItemParams) {
 		super(values);
-		this.trakt = values.trakt && new TraktShowItem(values.trakt);
+		this.simkl = values.simkl && new SimklShowItem(values.simkl);
 	}
 
 	save(): ShowItemValues {
 		return {
 			...super.save(),
 			type: this.type,
-			trakt: this.trakt?.save(),
+			simkl: this.simkl?.save(),
 		};
 	}
 
@@ -268,18 +268,18 @@ export class ShowItem extends BaseItem implements ShowItemValues {
 
 export class MovieItem extends BaseItem implements MovieItemValues {
 	type = 'movie' as const;
-	trakt?: TraktMovieItem | null;
+	simkl?: SimklMovieItem | null;
 
 	constructor(values: ShowItemParams) {
 		super(values);
-		this.trakt = values.trakt && new TraktMovieItem(values.trakt);
+		this.simkl = values.simkl && new SimklMovieItem(values.simkl);
 	}
 
 	save(): MovieItemValues {
 		return {
 			...super.save(),
 			type: this.type,
-			trakt: this.trakt?.save(),
+			simkl: this.simkl?.save(),
 		};
 	}
 

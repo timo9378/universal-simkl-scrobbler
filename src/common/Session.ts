@@ -1,4 +1,4 @@
-import { TraktAuth } from '@apis/TraktAuth';
+import { SimklAuth } from '@apis/SimklAuth';
 import { Messaging } from '@common/Messaging';
 import { Shared } from '@common/Shared';
 
@@ -11,7 +11,7 @@ class _Session {
 
 	async checkLogin(): Promise<void> {
 		try {
-			const auth = await TraktAuth.validateToken();
+			const auth = await SimklAuth.validateToken();
 			if (auth && auth.access_token) {
 				this.isLoggedIn = true;
 				await Shared.events.dispatch('LOGIN_SUCCESS', null, { auth });
@@ -55,13 +55,6 @@ class _Session {
 				Shared.errors.error('Failed to log out.', err);
 				await Shared.events.dispatch('LOGOUT_ERROR', null, { error: err });
 			}
-		}
-	}
-
-	async finishLogin(): Promise<void> {
-		const redirectUrl = window.location.search;
-		if (redirectUrl.includes('code')) {
-			await Messaging.toExtension({ action: 'finish-login', redirectUrl });
 		}
 	}
 }

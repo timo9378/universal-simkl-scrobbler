@@ -1,4 +1,4 @@
-import { TraktSync } from '@apis/TraktSync';
+import { SimklSync } from '@apis/SimklSync';
 import { SyncDialogShowData } from '@common/Events';
 import { I18N } from '@common/I18N';
 import { Shared } from '@common/Shared';
@@ -46,7 +46,7 @@ export const SyncDialog = (): JSX.Element => {
 			}
 
 			try {
-				await TraktSync.sync(store, items);
+				await SimklSync.sync(store, items);
 				if (serviceId) {
 					const lastSync = items[0].watchedAt ?? Utils.unix();
 					if (lastSync > Shared.storage.options.services[serviceId].lastSync) {

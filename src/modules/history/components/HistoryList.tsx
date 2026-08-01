@@ -1,7 +1,7 @@
 import { CorrectionApi } from '@apis/CorrectionApi';
 import { ServiceApi } from '@apis/ServiceApi';
 import { TmdbApi } from '@apis/TmdbApi';
-import { TraktSync } from '@apis/TraktSync';
+import { SimklSync } from '@apis/SimklSync';
 import {
 	HistorySyncSuccessData,
 	ItemCorrectedData,
@@ -47,7 +47,7 @@ export const HistoryList = (): JSX.Element => {
 	const [itemCount, setItemCount] = useState(calculateItemCount(serviceId, store));
 	// Bumped on every ITEMS_LOAD so that `itemSize` gets a new identity. react-window only
 	// recalculates row heights when `rowCount` or the `rowHeight` function changes, so without
-	// this, items that become hidden after they were measured (e.g. once Trakt data arrives and
+	// this, items that become hidden after they were measured (e.g. once Simkl data arrives and
 	// `doHide()` turns true) would keep their 250px row and leave an empty gap in the list.
 	const [itemsChangeId, setItemsChangeId] = useState(0);
 	const [continueLoading, setContinueLoading] = useState(false);
@@ -147,7 +147,7 @@ export const HistoryList = (): JSX.Element => {
 	};
 
 	const loadData = async (items: ScrobbleItem[]) => {
-		items = await ServiceApi.loadTraktHistory(items, processItem);
+		items = await ServiceApi.loadSimklHistory(items, processItem);
 		if (Shared.storage.options.sendReceiveSuggestions) {
 			items = await CorrectionApi.loadSuggestions(items);
 			await store.update(items, true);
@@ -183,8 +183,8 @@ export const HistoryList = (): JSX.Element => {
 		let newItems = await startLoading(items);
 		newItems = newItems.map((item) => {
 			const newItem = item.clone();
-			if (newItem.trakt) {
-				delete newItem.trakt.watchedAt;
+			if (newItem.simkl) {
+				delete newItem.simkl.watchedAt;
 			}
 			return newItem;
 		});
@@ -246,7 +246,7 @@ export const HistoryList = (): JSX.Element => {
 	useEffect(() => {
 		const startListeners = () => {
 			Shared.events.subscribe('SERVICE_HISTORY_LOAD_ERROR', null, onHistoryLoadError);
-			Shared.events.subscribe('TRAKT_HISTORY_LOAD_ERROR', null, onTraktHistoryLoadError);
+			Shared.events.subscribe('SIMKL_HISTORY_LOAD_ERROR', null, onSimklHistoryLoadError);
 			Shared.events.subscribe('MISSING_WATCHED_DATE_ADDED', null, onMissingWatchedDateAdded);
 			Shared.events.subscribe('ITEM_CORRECTED', null, onItemCorrected);
 			Shared.events.subscribe('HISTORY_SYNC_SUCCESS', null, onHistorySyncSuccess);
@@ -258,7 +258,7 @@ export const HistoryList = (): JSX.Element => {
 
 		const stopListeners = () => {
 			Shared.events.unsubscribe('SERVICE_HISTORY_LOAD_ERROR', null, onHistoryLoadError);
-			Shared.events.unsubscribe('TRAKT_HISTORY_LOAD_ERROR', null, onTraktHistoryLoadError);
+			Shared.events.unsubscribe('SIMKL_HISTORY_LOAD_ERROR', null, onSimklHistoryLoadError);
 			Shared.events.unsubscribe('MISSING_WATCHED_DATE_ADDED', null, onMissingWatchedDateAdded);
 			Shared.events.unsubscribe('ITEM_CORRECTED', null, onItemCorrected);
 			Shared.events.unsubscribe('HISTORY_SYNC_SUCCESS', null, onHistorySyncSuccess);
@@ -281,9 +281,9 @@ export const HistoryList = (): JSX.Element => {
 			});
 		};
 
-		const onTraktHistoryLoadError = async () => {
+		const onSimklHistoryLoadError = async () => {
 			await Shared.events.dispatch('SNACKBAR_SHOW', null, {
-				messageName: 'loadTraktHistoryError',
+				messageName: 'loadSimklHistoryError',
 				severity: 'error',
 			});
 		};
@@ -300,9 +300,9 @@ export const HistoryList = (): JSX.Element => {
 			let newItem = createScrobbleItem(data.newItem);
 			[newItem] = await startLoading([newItem]);
 			try {
-				if (data.oldItem.trakt?.syncId) {
+				if (data.oldItem.simkl?.syncId) {
 					const oldItem = createScrobbleItem(data.oldItem);
-					await TraktSync.removeHistory(oldItem);
+					await SimklSync.removeHistory(oldItem);
 				}
 			} catch (_err) {
 				// Do nothing

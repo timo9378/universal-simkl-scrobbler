@@ -1,4 +1,4 @@
-import { TraktAuth } from '@apis/TraktAuth';
+import { SimklAuth } from '@apis/SimklAuth';
 import { AutoSync } from '@common/AutoSync';
 import { BrowserAction } from '@common/BrowserAction';
 import { BrowserStorage } from '@common/BrowserStorage';
@@ -46,13 +46,13 @@ Messaging.addHandlers({
 
 	'get-tab-id': (message, tabId) => tabId,
 
-	'validate-trakt-token': () => TraktAuth.validateToken(),
+	'validate-simkl-token': () => SimklAuth.validateToken(),
 
-	'finish-login': (message) => TraktAuth.finishManualAuth(message.redirectUrl),
+	'get-pending-pin': () => Promise.resolve(SimklAuth.pendingPin),
 
-	login: () => TraktAuth.authorize(),
+	login: () => SimklAuth.authorize(),
 
-	logout: () => TraktAuth.revokeToken(),
+	logout: () => SimklAuth.revokeToken(),
 
 	'send-request': (message, tabId) => Requests.send(message.request, tabId),
 

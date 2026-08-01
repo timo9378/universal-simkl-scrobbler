@@ -1,11 +1,11 @@
 import { Suggestion } from '@apis/CorrectionApi';
 import { TmdbApiConfig } from '@apis/TmdbApi';
-import { TraktSettingsResponse } from '@apis/TraktSettings';
-import { TraktHistoryItem } from '@apis/TraktSync';
+import { SimklSettingsResponse } from '@apis/SimklSettings';
+import { SimklWatchedResult } from '@apis/SimklSync';
 import { Shared } from '@common/Shared';
 import { Utils } from '@common/Utils';
 import { ScrobbleItemValues } from '@models/Item';
-import { TraktItemValues } from '@models/TraktItem';
+import { SimklItemValues } from '@models/SimklItem';
 import browser, { Alarms as WebExtAlarms } from 'webextension-polyfill';
 
 export type CacheItems<T extends (keyof CacheValues)[]> = {
@@ -20,15 +20,15 @@ export interface CacheSubValues {
 	history: HistoryCache;
 	historyItemsToItems: string;
 	items: ScrobbleItemValues;
-	itemsToTraktItems: string;
+	itemsToSimklItems: string;
 	servicesData: unknown;
 	suggestions: Suggestion[] | null;
 	tmdbApiConfigs: TmdbApiConfig | null;
 	tmdbImageUrls: string | null;
-	traktHistoryItems: TraktHistoryItem[];
-	traktItems: TraktItemValues;
-	traktSettings: TraktSettingsResponse;
-	urlsToTraktItems: string;
+	simklHistoryItems: SimklWatchedResult[];
+	simklItems: SimklItemValues;
+	simklSettings: SimklSettingsResponse;
+	urlsToSimklItems: string;
 }
 
 export type Cacheable<T = unknown> = {
@@ -80,15 +80,15 @@ class _Cache {
 		history: 24 * 60 * 60,
 		historyItemsToItems: 24 * 60 * 60,
 		items: 24 * 60 * 60,
-		itemsToTraktItems: 24 * 60 * 60,
+		itemsToSimklItems: 24 * 60 * 60,
 		servicesData: 24 * 60 * 60,
 		suggestions: 60 * 60,
 		tmdbApiConfigs: 7 * 24 * 60 * 60,
 		tmdbImageUrls: 24 * 60 * 60,
-		traktHistoryItems: 45 * 60,
-		traktItems: 24 * 60 * 60,
-		traktSettings: 24 * 60 * 60,
-		urlsToTraktItems: 24 * 60 * 60,
+		simklHistoryItems: 45 * 60,
+		simklItems: 24 * 60 * 60,
+		simklSettings: 24 * 60 * 60,
+		urlsToSimklItems: 24 * 60 * 60,
 	};
 
 	readonly storageKeys = Object.keys(this.ttl).map(

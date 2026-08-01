@@ -4,11 +4,14 @@ import type { Errors } from '@common/Errors';
 import type { EventDispatcher } from '@common/Events';
 
 export interface SharedValues {
-	DATABASE_URL: string;
-
 	environment: string;
+	/**
+	 * Simkl client id from https://simkl.com/settings/developer/.
+	 *
+	 * There is deliberately no client secret: the PIN flow doesn't use one, and a
+	 * secret shipped inside an extension isn't secret anyway.
+	 */
 	clientId: string;
-	clientSecret: string;
 	rollbarToken: string;
 	tmdbApiKey: string;
 
@@ -51,11 +54,12 @@ let initPromiseResolve: (value: unknown) => void = () => {
 const initPromise = new Promise((resolve) => (initPromiseResolve = resolve));
 
 export const Shared: SharedValues = {
-	DATABASE_URL: 'https://uts.rafaelgomes.xyz/api',
-
+	// `DATABASE_URL` used to point at upstream's helper service (uts.rafaelgomes.xyz)
+	// for TMDB images and community corrections. Both are gone in this fork: the image
+	// routes 404, and its correction ids are Trakt ids that would resolve to unrelated
+	// Simkl titles. See TmdbApi and CorrectionApi.
 	environment: process.env.REACT_ENV || '',
-	clientId: process.env.TRAKT_CLIENT_ID || '',
-	clientSecret: process.env.TRAKT_CLIENT_SECRET || '',
+	clientId: process.env.SIMKL_CLIENT_ID || '',
 	rollbarToken: process.env.ROLLBAR_TOKEN || '',
 	tmdbApiKey: process.env.TMDB_API_KEY || '',
 

@@ -1,6 +1,6 @@
 import { Suggestion } from '@apis/CorrectionApi';
-import { TraktSearch } from '@apis/TraktSearch';
-import { TraktSync } from '@apis/TraktSync';
+import { SimklSearch } from '@apis/SimklSearch';
+import { SimklSync } from '@apis/SimklSync';
 import { Cache, CacheItems } from '@common/Cache';
 import { RequestError } from '@common/RequestError';
 import { Shared } from '@common/Shared';
@@ -40,38 +40,38 @@ export abstract class ServiceApi {
 		registerServiceApi(this.id, this);
 	}
 
-	static async loadTraktHistory(
+	static async loadSimklHistory(
 		items: ScrobbleItem[],
 		processItem?: (item: ScrobbleItem) => Promise<ScrobbleItem>,
 		cancelKey = 'default'
 	): Promise<ScrobbleItem[]> {
-		const hasLoadedTraktHistory = !items.some(
+		const hasLoadedSimklHistory = !items.some(
 			(item) =>
-				typeof item.trakt === 'undefined' ||
-				(item.trakt && typeof item.trakt.watchedAt === 'undefined')
+				typeof item.simkl === 'undefined' ||
+				(item.simkl && typeof item.simkl.watchedAt === 'undefined')
 		);
-		if (hasLoadedTraktHistory) {
+		if (hasLoadedSimklHistory) {
 			return items;
 		}
 		let newItems = items.map((item) => item.clone());
 		try {
 			const caches = await Cache.get([
-				'itemsToTraktItems',
-				'traktItems',
-				'traktHistoryItems',
-				'urlsToTraktItems',
+				'itemsToSimklItems',
+				'simklItems',
+				'simklHistoryItems',
+				'urlsToSimklItems',
 			]);
 			const { corrections } = await Shared.storage.get('corrections');
 			const promises = [];
 			for (const item of newItems) {
 				if (
-					typeof item.trakt === 'undefined' ||
-					(item.trakt && typeof item.trakt.watchedAt === 'undefined')
+					typeof item.simkl === 'undefined' ||
+					(item.simkl && typeof item.simkl.watchedAt === 'undefined')
 				) {
 					const databaseId = item.getDatabaseId();
 					const correction = corrections?.[databaseId];
 					promises.push(
-						ServiceApi.loadTraktItemHistory(item, caches, correction, processItem, cancelKey)
+						ServiceApi.loadSimklItemHistory(item, caches, correction, processItem, cancelKey)
 					);
 				} else {
 					let promise;
@@ -87,8 +87,8 @@ export abstract class ServiceApi {
 			await Cache.set(caches);
 		} catch (err) {
 			if (Shared.errors.validate(err)) {
-				Shared.errors.error('Failed to load Trakt history.', err);
-				await Shared.events.dispatch('TRAKT_HISTORY_LOAD_ERROR', null, {
+				Shared.errors.error('Failed to load Simkl history.', err);
+				await Shared.events.dispatch('SIMKL_HISTORY_LOAD_ERROR', null, {
 					error: err,
 				});
 			}
@@ -97,37 +97,37 @@ export abstract class ServiceApi {
 		return newItems;
 	}
 
-	static async loadTraktItemHistory(
+	static async loadSimklItemHistory(
 		item: ScrobbleItem,
 		caches: CacheItems<
-			['itemsToTraktItems', 'traktItems', 'traktHistoryItems', 'urlsToTraktItems']
+			['itemsToSimklItems', 'simklItems', 'simklHistoryItems', 'urlsToSimklItems']
 		>,
 		correction?: Suggestion,
 		processItem?: (item: ScrobbleItem) => Promise<ScrobbleItem>,
 		cancelKey = 'default'
 	): Promise<ScrobbleItem> {
 		try {
-			if (!item.trakt) {
-				item.trakt = await TraktSearch.find(item, caches, correction, cancelKey);
+			if (!item.simkl) {
+				item.simkl = await SimklSearch.find(item, caches, correction, cancelKey);
 				if (processItem) {
 					item = await processItem(item.clone());
 				}
 			}
-			if (item.trakt && typeof item.trakt.watchedAt === 'undefined') {
-				await TraktSync.loadHistory(item, caches.traktHistoryItems, false, cancelKey);
+			if (item.simkl && typeof item.simkl.watchedAt === 'undefined') {
+				await SimklSync.loadHistory(item, caches.simklHistoryItems, false, cancelKey);
 				if (processItem) {
 					item = await processItem(item.clone());
 				}
 			}
 		} catch (err) {
 			console.debug(
-				`[UTS] Failed to load Trakt data for "${item.getFullTitle()}" (${item.serviceId})`,
+				`[UTS] Failed to load Simkl data for "${item.getFullTitle()}" (${item.serviceId})`,
 				err
 			);
-			if (item.trakt) {
-				delete item.trakt.watchedAt;
+			if (item.simkl) {
+				delete item.simkl.watchedAt;
 			} else {
-				item.trakt = null;
+				item.simkl = null;
 			}
 			if (processItem) {
 				item = await processItem(item.clone());

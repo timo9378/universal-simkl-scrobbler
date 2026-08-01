@@ -70,7 +70,7 @@ class _CrunchyrollApi extends ServiceApi {
 		this.TOKEN_AUTH = 'bm9haWhkZXZtXzZpeWcwYThsMHE6';
 
 		this.DEVICE_ID = '1a740c71-27ac-409a-a360-549a3dadacc6'; // randomly generated to follow UUID v4 standard
-		this.DEVICE_NAME = 'Universal Trakt Scrobbler'; // this will be shown in Crunchyrolls new device login notification mail
+		this.DEVICE_NAME = 'Universal Simkl Scrobbler'; // this will be shown in Crunchyrolls new device login notification mail
 
 		this.isActivated = false;
 	}

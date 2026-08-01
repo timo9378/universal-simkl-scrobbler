@@ -1,4 +1,4 @@
-import { TraktScrobble } from '@apis/TraktScrobble';
+import { SimklScrobble } from '@apis/SimklScrobble';
 import {
 	ScrobbleErrorData,
 	ScrobbleSuccessData,
@@ -17,9 +17,9 @@ class _Notifications {
 
 	constructor() {
 		this.messageNames = {
-			[TraktScrobble.START]: 'scrobbleStarted',
-			[TraktScrobble.PAUSE]: 'scrobblePaused',
-			[TraktScrobble.STOP]: 'scrobbleStopped',
+			[SimklScrobble.START]: 'scrobbleStarted',
+			[SimklScrobble.PAUSE]: 'scrobblePaused',
+			[SimklScrobble.STOP]: 'scrobbleStopped',
 		};
 	}
 

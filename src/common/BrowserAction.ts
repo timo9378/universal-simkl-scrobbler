@@ -30,7 +30,7 @@ class _BrowserAction {
 		void this.setInactiveIcon();
 	};
 
-	async setTitle(title = 'Universal Trakt Scrobbler'): Promise<void> {
+	async setTitle(title = 'Universal Simkl Scrobbler'): Promise<void> {
 		if (Shared.pageType === 'background') {
 			await this.instance.setTitle({ title });
 		} else {

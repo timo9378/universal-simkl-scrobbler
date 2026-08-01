@@ -3,7 +3,7 @@
 		"message": "Tentang"
 	},
 	"aboutMessage": {
-		"message": "Kirim aktivitas Anda dari layanan streaming favorit Anda ke Trakt.tv!"
+		"message": "Kirim aktivitas Anda dari layanan streaming favorit Anda ke Simkl!"
 	},
 	"add": {
 		"message": "Tambah"
@@ -27,7 +27,7 @@
 		"message": "Dengan mengaktifkan opsi ini, setiap kali bug terjadi, informasi tentangnya akan dikumpulkan dan dikirimkan kepada kami, sehingga kami dapat memperbaikinya lebih cepat dan meningkatkan ekstensi. Informasi ini mencakup: kapan bug terjadi, pelacakan balik bug, nama dan versi browser Anda, dan nama OS Anda. Data ini tidak dibagikan dengan layanan lain mana pun."
 	},
 	"appDescription": {
-		"message": "Sinkronisasi universal untuk Trakt.tv."
+		"message": "Sinkronisasi universal untuk Simkl."
 	},
 	"autoSync": {
 		"message": "Sinkronisasi Otomatis"
@@ -121,7 +121,7 @@
 		"message": "Gagal memperbaiki item."
 	},
 	"correctionDialogContent": {
-		"message": "Masukkan URL Trakt yang benar untuk $TITLE$ di bidang di bawah ini.",
+		"message": "Masukkan URL Simkl yang benar untuk $TITLE$ di bidang di bawah ini.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Masukkan URL Trakt yang benar untuk $TITLE$ di bidang di bawah ini atau gunakan salah satu saran.",
+		"message": "Masukkan URL Simkl yang benar untuk $TITLE$ di bidang di bawah ini atau gunakan salah satu saran.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "PERINGATAN: Anda mengoreksi item yang telah disinkronkan. Jika Anda melanjutkan, item yang disinkronkan sebelumnya akan dihapus dari riwayat Trakt Anda."
+		"message": "PERINGATAN: Anda mengoreksi item yang telah disinkronkan. Jika Anda melanjutkan, item yang disinkronkan sebelumnya akan dihapus dari riwayat Simkl Anda."
 	},
 	"couldNotScrobble": {
 		"message": "Tidak bisa scrobble."
@@ -158,13 +158,13 @@
 		"message": "Terjadi sebuah kesalahan. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Sepertinya Anda belum masuk. Silakan buka ekstensi dan masuk dengan akun Trakt Anda."
+		"message": "Sepertinya Anda belum masuk. Silakan buka ekstensi dan masuk dengan akun Simkl Anda."
 	},
 	"errorNotificationNotFound": {
-		"message": "Oh snap! Kami tidak dapat menemukan apa yang Anda tonton di Trakt. Silakan tinggalkan laporan dengan judul item."
+		"message": "Oh snap! Kami tidak dapat menemukan apa yang Anda tonton di Simkl. Silakan tinggalkan laporan dengan judul item."
 	},
 	"errorNotificationServers": {
-		"message": "Kami tidak dapat terkoneksi dengan server Trakt. Kami sedang mencoba memperbaikinya, silakan coba lagi nanti."
+		"message": "Kami tidak dapat terkoneksi dengan server Simkl. Kami sedang mencoba memperbaikinya, silakan coba lagi nanti."
 	},
 	"from": {
 		"message": "dari"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Beranda"
 	},
-	"invalidTraktUrl": {
-		"message": "Harap masukkan URL Trakt yang benar!"
+	"invalidSimklUrl": {
+		"message": "Harap masukkan URL Simkl yang benar!"
 	},
 	"isThisWrong": {
 		"message": "Apakah ini salah?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Dengan opsi ini dinonaktifkan, gambar untuk item scrobbling dan untuk item riwayat tidak akan dimuat. Ini berguna untuk koneksi yang lebih lambat, di mana memuat gambar secara signifikan memperlambat ekstensi."
 	},
-	"loadTraktHistoryError": {
-		"message": "Gagal memuat riwayat Trakt."
+	"loadSimklHistoryError": {
+		"message": "Gagal memuat riwayat Simkl."
 	},
 	"loadingHistory": {
 		"message": "Memuat riwayat"
@@ -244,7 +244,10 @@
 		"message": "Memuat saran"
 	},
 	"login": {
-		"message": "Login dengan Trakt.tv"
+		"message": "Login dengan Simkl"
+	},
+	"enterPinAt": {
+		"message": "Enter this code at"
 	},
 	"logout": {
 		"message": "Keluar"

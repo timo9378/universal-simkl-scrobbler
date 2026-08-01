@@ -79,7 +79,7 @@ class _CraveParser extends ScrobbleParser {
 			) {
 				// Mark the URL as stale so that future calls know to skip calling the API.
 				this.isStaleUrl = true;
-				// The scrobbler only explicitly rechecks trakt mapping data after stopping playback. Manually
+				// The scrobbler only explicitly rechecks simkl mapping data after stopping playback. Manually
 				// dispatch the event so that the item is fully updated.
 				await Shared.events.dispatch('SCROBBLING_ITEM_CORRECTED', null, {
 					oldItem: item,

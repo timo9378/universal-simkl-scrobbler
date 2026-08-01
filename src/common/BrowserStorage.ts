@@ -1,6 +1,6 @@
 import { Suggestion } from '@apis/CorrectionApi';
-import { TraktAuthDetails } from '@apis/TraktAuth';
-import { TraktSettings } from '@apis/TraktSettings';
+import { SimklAuthDetails } from '@apis/SimklAuth';
+import { SimklSettings } from '@apis/SimklSettings';
 import { CacheStorageValues } from '@common/Cache';
 import { I18N } from '@common/I18N';
 import { Messaging } from '@common/Messaging';
@@ -9,7 +9,7 @@ import { Shared } from '@common/Shared';
 import { Utils } from '@common/Utils';
 import { ScrobbleItemValues } from '@models/Item';
 import { getService, getServices } from '@models/Service';
-import { TraktItemValues } from '@models/TraktItem';
+import { SimklItemValues } from '@models/SimklItem';
 import '@services';
 import { PartialDeep } from 'type-fest';
 import browser, { Manifest as WebExtManifest } from 'webextension-polyfill';
@@ -61,7 +61,7 @@ export type StorageValuesV6 = Omit<
 	scrobblingDetails?: ScrobblingDetails;
 } & CacheStorageValues;
 
-export type StorageValuesV5 = Omit<StorageValuesV4, 'version' | 'traktCache'> & {
+export type StorageValuesV5 = Omit<StorageValuesV4, 'version' | 'simklCache'> & {
 	version?: 5;
 } & CacheStorageValues;
 
@@ -77,12 +77,12 @@ export type StorageValuesV3 = Omit<StorageValuesV2, 'version' | 'options'> & {
 
 export type StorageValuesV2 = Omit<
 	StorageValuesV1,
-	'version' | 'options' | 'syncOptions' | 'traktCache' | 'correctUrls' | 'scrobblingItem'
+	'version' | 'options' | 'syncOptions' | 'simklCache' | 'correctUrls' | 'scrobblingItem'
 > & {
 	version?: 2;
 	options?: StorageValuesOptionsV2;
 	syncOptions?: StorageValuesSyncOptionsV2;
-	traktCache?: Record<string, TraktItemValues>;
+	simklCache?: Record<string, SimklItemValues>;
 	syncCache?: SyncCacheValue;
 	correctItems?: Partial<Record<string, Record<string, CorrectItem>>>;
 	scrobblingItem?: ScrobbleItemValues;
@@ -90,10 +90,10 @@ export type StorageValuesV2 = Omit<
 
 export type StorageValuesV1 = {
 	version?: 1;
-	auth?: TraktAuthDetails;
+	auth?: SimklAuthDetails;
 	options?: StorageValuesOptionsV1;
 	syncOptions?: StorageValuesSyncOptionsV1;
-	traktCache?: unknown;
+	simklCache?: unknown;
 	correctUrls?: Partial<Record<string, Record<string, string>>>;
 	scrobblingItem?: unknown;
 	scrobblingTabId?: number;
@@ -162,7 +162,7 @@ export type SyncCacheValue = {
 
 export type CorrectItem = {
 	type: 'episode' | 'movie';
-	traktId?: number;
+	simklId?: number;
 	url: string;
 };
 
@@ -266,7 +266,7 @@ class _BrowserStorage {
 		await this.loadSyncOptions();
 		await Session.checkLogin();
 		if (Session.isLoggedIn) {
-			Shared.dateFormat = await TraktSettings.getTimeAndDateFormat();
+			Shared.dateFormat = await SimklSettings.getTimeAndDateFormat();
 		}
 	}
 
@@ -291,7 +291,7 @@ class _BrowserStorage {
 			console.log('Upgrading to v2...');
 
 			await this.doRemove(
-				['traktCache', 'correctUrls', 'scrobblingItem'] as unknown as (keyof StorageValues)[],
+				['simklCache', 'correctUrls', 'scrobblingItem'] as unknown as (keyof StorageValues)[],
 				true
 			);
 
@@ -348,7 +348,7 @@ class _BrowserStorage {
 		if (version < 5 && this.currentVersion >= 5) {
 			console.log('Upgrading to v5...');
 
-			await this.doRemove(['traktCache'] as unknown as (keyof StorageValues)[], true);
+			await this.doRemove(['simklCache'] as unknown as (keyof StorageValues)[], true);
 		}
 
 		if (version < 6 && this.currentVersion >= 6) {
@@ -397,7 +397,7 @@ class _BrowserStorage {
 		if (version < 9 && this.currentVersion >= 9) {
 			console.log('Upgrading to v9...');
 
-			await this.doRemove(['itemsCache', 'syncCache', 'traktItemsCache'], true);
+			await this.doRemove(['itemsCache', 'syncCache', 'simklItemsCache'], true);
 		}
 
 		if (version < 10 && this.currentVersion >= 10) {
@@ -477,7 +477,7 @@ class _BrowserStorage {
 		if (version > 8 && this.currentVersion <= 8) {
 			console.log('Downgrading to v8...');
 
-			await this.doRemove(['itemsCache', 'syncCache', 'traktItemsCache'], true);
+			await this.doRemove(['itemsCache', 'syncCache', 'simklItemsCache'], true);
 		}
 
 		if (version > 7 && this.currentVersion <= 7) {
@@ -503,14 +503,14 @@ class _BrowserStorage {
 					'historyItemsToItemsCache',
 					'imageUrlsCache',
 					'itemsCache',
-					'itemsToTraktItemsCache',
+					'itemsToSimklItemsCache',
 					'servicesDataCache',
 					'suggestionsCache',
 					'tmdbApiConfigsCache',
-					'traktHistoryItemsCache',
-					'traktItemsCache',
-					'traktSettingsCache',
-					'urlsToTraktItemsCache',
+					'simklHistoryItemsCache',
+					'simklItemsCache',
+					'simklSettingsCache',
+					'urlsToSimklItemsCache',
 				] as unknown as (keyof StorageValues)[],
 				true
 			);
@@ -543,7 +543,7 @@ class _BrowserStorage {
 
 			await this.doRemove(
 				[
-					'traktCache',
+					'simklCache',
 					'syncCache',
 					'correctItems',
 					'scrobblingItem',

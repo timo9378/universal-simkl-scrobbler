@@ -1,11 +1,11 @@
 import { ServiceApi } from '@apis/ServiceApi';
-import { TraktScrobble } from '@apis/TraktScrobble';
-import { TraktSearch } from '@apis/TraktSearch';
+import { SimklScrobble } from '@apis/SimklScrobble';
+import { SimklSearch } from '@apis/SimklSearch';
 import { Cache } from '@common/Cache';
 import { ItemCorrectedData, StorageOptionsChangeData } from '@common/Events';
 import { getScrobbleParser, ScrobbleParser } from '@common/ScrobbleParser';
 import { Shared } from '@common/Shared';
-import { createTraktScrobbleItem } from '@models/TraktItem';
+import { createSimklScrobbleItem } from '@models/SimklItem';
 
 const scrobbleControllers = new Map<string, ScrobbleController>();
 
@@ -64,40 +64,40 @@ export class ScrobbleController {
 		}
 		this.reachedScrobbleThreshold = false;
 		this.progress = 0.0;
-		if (typeof item.trakt === 'undefined') {
-			const caches = await Cache.get(['itemsToTraktItems', 'traktItems', 'urlsToTraktItems']);
+		if (typeof item.simkl === 'undefined') {
+			const caches = await Cache.get(['itemsToSimklItems', 'simklItems', 'urlsToSimklItems']);
 			const { corrections } = await Shared.storage.get(['corrections']);
 			const databaseId = item.getDatabaseId();
 			const correction = corrections?.[databaseId];
 			try {
-				item.trakt = await TraktSearch.find(item, caches, correction);
+				item.simkl = await SimklSearch.find(item, caches, correction);
 			} catch (err) {
-				item.trakt = null;
+				item.simkl = null;
 				throw err;
 			}
 			await Cache.set(caches);
 		}
-		if (!item.trakt) {
+		if (!item.simkl) {
 			return;
 		}
-		item.trakt.progress = item.progress;
-		await TraktScrobble.start(item);
+		item.simkl.progress = item.progress;
+		await SimklScrobble.start(item);
 	}
 
 	async pauseScrobble(): Promise<void> {
 		const item = this.parser.getItem();
-		if (!item?.trakt) {
+		if (!item?.simkl) {
 			return;
 		}
-		await TraktScrobble.pause(item);
+		await SimklScrobble.pause(item);
 	}
 
 	async stopScrobble(): Promise<void> {
 		const item = this.parser.getItem();
-		if (!item?.trakt) {
+		if (!item?.simkl) {
 			return;
 		}
-		await TraktScrobble.stop(item);
+		await SimklScrobble.stop(item);
 		this.parser.clearItem();
 		this.reachedScrobbleThreshold = false;
 		this.progress = 0.0;
@@ -109,11 +109,11 @@ export class ScrobbleController {
 			return;
 		}
 		item.progress = progress;
-		if (!item?.trakt) {
+		if (!item?.simkl) {
 			return;
 		}
-		item.trakt.progress = progress;
-		if (!this.reachedScrobbleThreshold && item.trakt.progress > this.scrobbleThreshold) {
+		item.simkl.progress = progress;
+		if (!this.reachedScrobbleThreshold && item.simkl.progress > this.scrobbleThreshold) {
 			// Update the stored progress after reaching the scrobble threshold to make sure that the item is scrobbled on tab close.
 			this.reachedScrobbleThreshold = true;
 			const { scrobblingDetails } = await Shared.storage.get('scrobblingDetails');
@@ -139,7 +139,7 @@ export class ScrobbleController {
 	}
 
 	private onItemCorrected = async (data: ItemCorrectedData): Promise<void> => {
-		if (!data.newItem.trakt) {
+		if (!data.newItem.simkl) {
 			return;
 		}
 		const item = this.parser.getItem();
@@ -148,7 +148,7 @@ export class ScrobbleController {
 		}
 		await this.updateProgress(0.0);
 		await this.stopScrobble();
-		item.trakt = createTraktScrobbleItem(data.newItem.trakt);
+		item.simkl = createSimklScrobbleItem(data.newItem.simkl);
 		await this.startScrobble();
 	};
 }

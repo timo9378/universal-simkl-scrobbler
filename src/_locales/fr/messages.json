@@ -3,7 +3,7 @@
 		"message": "À propos"
 	},
 	"aboutMessage": {
-		"message": "Envoyez votre activité depuis vos services de streaming favoris à Trakt.tv!"
+		"message": "Envoyez votre activité depuis vos services de streaming favoris à Simkl!"
 	},
 	"add": {
 		"message": "Ajouter"
@@ -27,7 +27,7 @@
 		"message": "Avec cette option est activée, chaque fois qu'un bug se produit, des informations le concernant sont collectées et nous sont envoyées, afin que nous puissions le corriger plus rapidement et améliorer l'extension. Ces informations incluent : le moment où le bug s'est produit, la trace du bug, le nom et la version de votre navigateur ainsi que le nom de votre système d'exploitation. Ces données ne sont partagées avec aucun autre service."
 	},
 	"appDescription": {
-		"message": "Une synchronisation universelle pour Trakt.tv."
+		"message": "Une synchronisation universelle pour Simkl."
 	},
 	"autoSync": {
 		"message": "Synchronisation automatique"
@@ -121,7 +121,7 @@
 		"message": "Échec de la correction de l'élément."
 	},
 	"correctionDialogContent": {
-		"message": "Entrez l'URL Trakt correcte pour $TITLE$ dans le champ ci-dessous.",
+		"message": "Entrez l'URL Simkl correcte pour $TITLE$ dans le champ ci-dessous.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Entrez l'URL Trakt correcte pour $TITLE$ dans le champ ci-dessous ou utilisez l'une des suggestions.",
+		"message": "Entrez l'URL Simkl correcte pour $TITLE$ dans le champ ci-dessous ou utilisez l'une des suggestions.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "AVERTISSEMENT : Vous corrigez un élément qui a déjà été synchronisé. Si vous continuez, l'élément précédemment synchronisé sera supprimé de votre historique Trakt."
+		"message": "AVERTISSEMENT : Vous corrigez un élément qui a déjà été synchronisé. Si vous continuez, l'élément précédemment synchronisé sera supprimé de votre historique Simkl."
 	},
 	"couldNotScrobble": {
 		"message": "Impossible de scrobbler."
@@ -158,13 +158,13 @@
 		"message": "Une erreur est survenue. :("
 	},
 	"errorNotificationLogin": {
-		"message": "On dirait que vous n'êtes pas connecté. Veuillez ouvrir l'extension et vous connecter avec votre compte Trakt."
+		"message": "On dirait que vous n'êtes pas connecté. Veuillez ouvrir l'extension et vous connecter avec votre compte Simkl."
 	},
 	"errorNotificationNotFound": {
-		"message": "Oh mince ! Nous n'avons pas pu trouver ce que vous regardez sur Trakt. Veuillez laisser un rapport avec le titre de ce que vous regardiez."
+		"message": "Oh mince ! Nous n'avons pas pu trouver ce que vous regardez sur Simkl. Veuillez laisser un rapport avec le titre de ce que vous regardiez."
 	},
 	"errorNotificationServers": {
-		"message": "Nous n'avons pas pu communiquer avec les serveurs Trakt. Nous essayons de corriger, veuillez réessayer plus tard."
+		"message": "Nous n'avons pas pu communiquer avec les serveurs Simkl. Nous essayons de corriger, veuillez réessayer plus tard."
 	},
 	"from": {
 		"message": "de"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Accueil"
 	},
-	"invalidTraktUrl": {
-		"message": "Merci de saisir une URL Trakt valide !"
+	"invalidSimklUrl": {
+		"message": "Merci de saisir une URL Simkl valide !"
 	},
 	"isThisWrong": {
 		"message": "Est-ce que c'est faux ?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Avec cette option désactivée, les images pour le scrobbling et pour les éléments d'historique ne seront pas chargées. Ceci est utile pour les connexions plus lentes, où le chargement des images ralentit considérablement l'extension."
 	},
-	"loadTraktHistoryError": {
-		"message": "Échec du chargement de l'historique Trakt."
+	"loadSimklHistoryError": {
+		"message": "Échec du chargement de l'historique Simkl."
 	},
 	"loadingHistory": {
 		"message": "Chargement de l'historique"
@@ -244,7 +244,10 @@
 		"message": "Chargement des suggestions"
 	},
 	"login": {
-		"message": "Se connecter avec Trakt.tv"
+		"message": "Se connecter avec Simkl"
+	},
+	"enterPinAt": {
+		"message": "Entrez ce code sur"
 	},
 	"logout": {
 		"message": "Déconnexion"

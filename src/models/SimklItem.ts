@@ -1,12 +1,12 @@
-export type TraktItem = TraktScrobbleItem | TraktShowItem;
+export type SimklItem = SimklScrobbleItem | SimklShowItem;
 
-export type TraktScrobbleItem = TraktEpisodeItem | TraktMovieItem;
+export type SimklScrobbleItem = SimklEpisodeItem | SimklMovieItem;
 
-export type TraktItemValues = TraktScrobbleItemValues | TraktShowItemValues;
+export type SimklItemValues = SimklScrobbleItemValues | SimklShowItemValues;
 
-export type TraktScrobbleItemValues = TraktEpisodeItemValues | TraktMovieItemValues;
+export type SimklScrobbleItemValues = SimklEpisodeItemValues | SimklMovieItemValues;
 
-export interface TraktBaseItemValues {
+export interface SimklBaseItemValues {
 	id: number;
 	tmdbId: number;
 	syncId?: number;
@@ -20,30 +20,30 @@ export interface TraktBaseItemValues {
 	imageUrl?: string | null;
 }
 
-export interface TraktEpisodeItemValues extends TraktBaseItemValues {
+export interface SimklEpisodeItemValues extends SimklBaseItemValues {
 	type: 'episode';
 	season: number;
 	number: number;
-	show: TraktShowItemValues;
+	show: SimklShowItemValues;
 }
 
-export type TraktEpisodeItemParams = Omit<TraktEpisodeItemValues, 'type' | 'show'> & {
-	show: Omit<TraktShowItemValues, 'type'>;
+export type SimklEpisodeItemParams = Omit<SimklEpisodeItemValues, 'type' | 'show'> & {
+	show: Omit<SimklShowItemValues, 'type'>;
 };
 
-export interface TraktShowItemValues extends TraktBaseItemValues {
+export interface SimklShowItemValues extends SimklBaseItemValues {
 	type: 'show';
 }
 
-export type TraktShowItemParams = Omit<TraktShowItemValues, 'type'>;
+export type SimklShowItemParams = Omit<SimklShowItemValues, 'type'>;
 
-export interface TraktMovieItemValues extends TraktBaseItemValues {
+export interface SimklMovieItemValues extends SimklBaseItemValues {
 	type: 'movie';
 }
 
-export type TraktMovieItemParams = Omit<TraktMovieItemValues, 'type'>;
+export type SimklMovieItemParams = Omit<SimklMovieItemValues, 'type'>;
 
-abstract class TraktBaseItem implements TraktBaseItemValues {
+abstract class SimklBaseItem implements SimklBaseItemValues {
 	id: number;
 	tmdbId: number;
 	syncId?: number;
@@ -55,7 +55,7 @@ abstract class TraktBaseItem implements TraktBaseItemValues {
 	progress: number;
 	imageUrl?: string | null;
 
-	constructor(values: TraktBaseItemValues) {
+	constructor(values: SimklBaseItemValues) {
 		this.id = values.id;
 		this.tmdbId = values.tmdbId;
 		this.syncId = values.syncId;
@@ -69,7 +69,7 @@ abstract class TraktBaseItem implements TraktBaseItemValues {
 		this.imageUrl = values.imageUrl;
 	}
 
-	save(): TraktBaseItemValues {
+	save(): SimklBaseItemValues {
 		return {
 			id: this.id,
 			tmdbId: this.tmdbId,
@@ -94,23 +94,23 @@ abstract class TraktBaseItem implements TraktBaseItemValues {
 	/**
 	 * Clones the item for immutability.
 	 */
-	abstract clone(): TraktItem;
+	abstract clone(): SimklItem;
 }
 
-export class TraktEpisodeItem extends TraktBaseItem implements TraktEpisodeItemValues {
+export class SimklEpisodeItem extends SimklBaseItem implements SimklEpisodeItemValues {
 	type = 'episode' as const;
 	season: number;
 	number: number;
-	show: TraktShowItem;
+	show: SimklShowItem;
 
-	constructor(values: TraktEpisodeItemParams) {
+	constructor(values: SimklEpisodeItemParams) {
 		super(values);
 		this.season = values.season;
 		this.number = values.number;
-		this.show = new TraktShowItem(values.show);
+		this.show = new SimklShowItem(values.show);
 	}
 
-	save(): TraktEpisodeItemValues {
+	save(): SimklEpisodeItemValues {
 		return {
 			...super.save(),
 			type: this.type,
@@ -125,22 +125,23 @@ export class TraktEpisodeItem extends TraktBaseItem implements TraktEpisodeItemV
 	}
 
 	getHistoryUrl(): string {
-		return `https://trakt.tv/users/me/history?episode=${this.id}`;
+		// Simkl has no per-episode history URL, so this points at the episode page.
+		return `https://simkl.com/tv/${this.show.id}/season-${this.season}/episode-${this.number}`;
 	}
 
-	clone(): TraktEpisodeItem {
-		return new TraktEpisodeItem(this);
+	clone(): SimklEpisodeItem {
+		return new SimklEpisodeItem(this);
 	}
 }
 
-export class TraktShowItem extends TraktBaseItem implements TraktShowItemValues {
+export class SimklShowItem extends SimklBaseItem implements SimklShowItemValues {
 	type = 'show' as const;
 
-	constructor(values: TraktShowItemParams) {
+	constructor(values: SimklShowItemParams) {
 		super(values);
 	}
 
-	save(): TraktShowItemValues {
+	save(): SimklShowItemValues {
 		return {
 			...super.save(),
 			type: this.type,
@@ -152,22 +153,22 @@ export class TraktShowItem extends TraktBaseItem implements TraktShowItemValues 
 	}
 
 	getHistoryUrl(): string {
-		return `https://trakt.tv/users/me/history/episodes?show=${this.id}`;
+		return `https://simkl.com/tv/${this.id}`;
 	}
 
-	clone(): TraktShowItem {
-		return new TraktShowItem(this);
+	clone(): SimklShowItem {
+		return new SimklShowItem(this);
 	}
 }
 
-export class TraktMovieItem extends TraktBaseItem implements TraktMovieItemValues {
+export class SimklMovieItem extends SimklBaseItem implements SimklMovieItemValues {
 	type = 'movie' as const;
 
-	constructor(values: TraktMovieItemParams) {
+	constructor(values: SimklMovieItemParams) {
 		super(values);
 	}
 
-	save(): TraktMovieItemValues {
+	save(): SimklMovieItemValues {
 		return {
 			...super.save(),
 			type: this.type,
@@ -179,34 +180,34 @@ export class TraktMovieItem extends TraktBaseItem implements TraktMovieItemValue
 	}
 
 	getHistoryUrl(): string {
-		return `https://trakt.tv/users/me/history?movie=${this.id}`;
+		return `https://simkl.com/movies/${this.id}`;
 	}
 
-	clone(): TraktMovieItem {
-		return new TraktMovieItem(this);
+	clone(): SimklMovieItem {
+		return new SimklMovieItem(this);
 	}
 }
 
-export const createTraktItem = (values: TraktItemValues): TraktItem => {
+export const createSimklItem = (values: SimklItemValues): SimklItem => {
 	switch (values.type) {
 		case 'show':
-			return new TraktShowItem(values);
+			return new SimklShowItem(values);
 
 		default:
-			return createTraktScrobbleItem(values);
+			return createSimklScrobbleItem(values);
 	}
 };
 
-export const createTraktScrobbleItem = (values: TraktScrobbleItemValues): TraktScrobbleItem => {
+export const createSimklScrobbleItem = (values: SimklScrobbleItemValues): SimklScrobbleItem => {
 	switch (values.type) {
 		case 'episode':
-			return new TraktEpisodeItem(values);
+			return new SimklEpisodeItem(values);
 
 		case 'movie':
-			return new TraktMovieItem(values);
+			return new SimklMovieItem(values);
 	}
 };
 
-export const isTraktItem = (item: unknown): item is TraktItem => {
-	return item instanceof TraktBaseItem;
+export const isSimklItem = (item: unknown): item is SimklItem => {
+	return item instanceof SimklBaseItem;
 };

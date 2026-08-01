@@ -3,7 +3,7 @@
 		"message": "Informácie"
 	},
 	"aboutMessage": {
-		"message": "Odošlite vašu aktivitu z obľúbených streamovacích služieb do Trakt.tv!"
+		"message": "Odošlite vašu aktivitu z obľúbených streamovacích služieb do Simkl!"
 	},
 	"add": {
 		"message": "Pridať"
@@ -27,7 +27,7 @@
 		"message": "S povolením tejto možnosti, kedykoľvek príde ku chybe, informácie súvisiace s chybou budú zozbierané a odoslané ku nám, aby sme vedeli chybu rýchlejšie identifikovať a opraviť. Táto informácia obsahuje: kedy došlo ku chybe, zdroj chyby, názov a verzia prehliadača, názov operačného systému. Tieto údaje nie sú zdieľané so žiadnou ďalšou službou."
 	},
 	"appDescription": {
-		"message": "Univerzálna synchronizácia pre Trakt.tv."
+		"message": "Univerzálna synchronizácia pre Simkl."
 	},
 	"autoSync": {
 		"message": "Automatické synchronizovanie"
@@ -121,7 +121,7 @@
 		"message": "Nepodarilo sa opraviť položku."
 	},
 	"correctionDialogContent": {
-		"message": "Zadajte správnu Trakt URL pre $TITLE$ v poli nižšie.",
+		"message": "Zadajte správnu Simkl URL pre $TITLE$ v poli nižšie.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Zadajte správnu Trakt URL pre $TITLE$ v poli nižšie alebo použite jednu z navrhovaných.",
+		"message": "Zadajte správnu Simkl URL pre $TITLE$ v poli nižšie alebo použite jednu z navrhovaných.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "VAROVANIE: Snažíte sa opraviť položku, ktorá už bola synchronizovaná. Ak budete pokračovať, predošlá synchronizovaná položka bude zmazaná z vašej Trakt histórie."
+		"message": "VAROVANIE: Snažíte sa opraviť položku, ktorá už bola synchronizovaná. Ak budete pokračovať, predošlá synchronizovaná položka bude zmazaná z vašej Simkl histórie."
 	},
 	"couldNotScrobble": {
 		"message": "Nebolo možné zistiť."
@@ -158,13 +158,13 @@
 		"message": "Došlo k neočakávanej chybe :("
 	},
 	"errorNotificationLogin": {
-		"message": "Vyzerá fo tak, že nie ste prihlásený. Prosím, otvorte rozšírenie a prihláste sa do svojho Trakt.tv účtu."
+		"message": "Vyzerá fo tak, že nie ste prihlásený. Prosím, otvorte rozšírenie a prihláste sa do svojho Simkl účtu."
 	},
 	"errorNotificationNotFound": {
-		"message": "Ouch... Nepodarilo sa nám nájsť čo ste sledovali v Trakt.tv. Prosím, zanechajte hlásenie s názvom položky."
+		"message": "Ouch... Nepodarilo sa nám nájsť čo ste sledovali v Simkl. Prosím, zanechajte hlásenie s názvom položky."
 	},
 	"errorNotificationServers": {
-		"message": "Nepodarilo sa nám komunikovať so servermi služby Trakt.tv. Snažíme sa o odstránenie porblému, prosím skúste to neskôr."
+		"message": "Nepodarilo sa nám komunikovať so servermi služby Simkl. Snažíme sa o odstránenie porblému, prosím skúste to neskôr."
 	},
 	"from": {
 		"message": "z"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Domov"
 	},
-	"invalidTraktUrl": {
-		"message": "Prosím, vložte korektnú Trakt.tv URL!"
+	"invalidSimklUrl": {
+		"message": "Prosím, vložte korektnú Simkl URL!"
 	},
 	"isThisWrong": {
 		"message": "Čo je tu chybné?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "With this option disabled, images for the scrobbling item and for the history items will not be loaded. This is useful for slower connections, where loading images significantly slows down the extension."
 	},
-	"loadTraktHistoryError": {
-		"message": "Nepodarilo sa načítať históriu z Trakt.tv."
+	"loadSimklHistoryError": {
+		"message": "Nepodarilo sa načítať históriu z Simkl."
 	},
 	"loadingHistory": {
 		"message": "Načítavam históriu"
@@ -244,7 +244,10 @@
 		"message": "Načítavam návrhy"
 	},
 	"login": {
-		"message": "Prihlásiť cez Trakt.tv"
+		"message": "Prihlásiť cez Simkl"
+	},
+	"enterPinAt": {
+		"message": "Enter this code at"
 	},
 	"logout": {
 		"message": "Odhlásenie"

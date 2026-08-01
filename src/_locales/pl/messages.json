@@ -3,7 +3,7 @@
 		"message": "Informacje"
 	},
 	"aboutMessage": {
-		"message": "Wyślij swoją aktywność z ulubionych serwisów streamujących do Trakt.tv!"
+		"message": "Wyślij swoją aktywność z ulubionych serwisów streamujących do Simkl!"
 	},
 	"add": {
 		"message": "Dodaj"
@@ -27,7 +27,7 @@
 		"message": "Z tą opcją włączona, gdy wystąpi błąd, informacje o niej zostaną zebrane i wysłane do nas, abyśmy mogli naprawić błąd szybciej i ulepszyć rozszerzenie. Ta informacja zawiera: datę i czas wystąpienia błędu, proces odtworzenia błędu, nazwę i wersję przeglądarki oraz nazwę systemu operacyjnego. Te dane nie są udostępniane innym serwisom."
 	},
 	"appDescription": {
-		"message": "Uniwersalna synchronizacja Trakt.tv."
+		"message": "Uniwersalna synchronizacja Simkl."
 	},
 	"autoSync": {
 		"message": "Synchronizacja automatyczna"
@@ -121,7 +121,7 @@
 		"message": "Nie udało się poprawić elementu."
 	},
 	"correctionDialogContent": {
-		"message": "Podaj poprawny adres URL Trakt dla $TITLE$ w polu poniżej.",
+		"message": "Podaj poprawny adres URL Simkl dla $TITLE$ w polu poniżej.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Podaj poprawny adres URL Trakt $TITLE$ w polu poniżej lub użyj jednej z sugestii.",
+		"message": "Podaj poprawny adres URL Simkl $TITLE$ w polu poniżej lub użyj jednej z sugestii.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "OSTRZEŻENIE: poprawiasz element, który został już zsynchronizowany. Jeśli będziesz kontynuować, poprzednio zsynchronizowany element zostanie usunięty z twojej historii Trakt."
+		"message": "OSTRZEŻENIE: poprawiasz element, który został już zsynchronizowany. Jeśli będziesz kontynuować, poprzednio zsynchronizowany element zostanie usunięty z twojej historii Simkl."
 	},
 	"couldNotScrobble": {
 		"message": "Nie udało się skrobblować."
@@ -158,13 +158,13 @@
 		"message": "Wystąpił błąd. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Wygląda na to, że nie jesteś zalogowany. Otwórz rozszerzenie i zaloguj się na swoje konto Trakt."
+		"message": "Wygląda na to, że nie jesteś zalogowany. Otwórz rozszerzenie i zaloguj się na swoje konto Simkl."
 	},
 	"errorNotificationNotFound": {
-		"message": "O kurka! Nie mogliśmy znaleźć tego, co oglądasz w Trakt. Zostaw raport z tytułem."
+		"message": "O kurka! Nie mogliśmy znaleźć tego, co oglądasz w Simkl. Zostaw raport z tytułem."
 	},
 	"errorNotificationServers": {
-		"message": "Nie mogliśmy połączyć się z serwerami Trakt. Próbujemy to naprawić, spróbuj ponownie później."
+		"message": "Nie mogliśmy połączyć się z serwerami Simkl. Próbujemy to naprawić, spróbuj ponownie później."
 	},
 	"from": {
 		"message": "z"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Strona główna"
 	},
-	"invalidTraktUrl": {
-		"message": "Podaj poprawny adres URL Trakt!"
+	"invalidSimklUrl": {
+		"message": "Podaj poprawny adres URL Simkl!"
 	},
 	"isThisWrong": {
 		"message": "Czy to jest niewłaściwe?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "With this option disabled, images for the scrobbling item and for the history items will not be loaded. This is useful for slower connections, where loading images significantly slows down the extension."
 	},
-	"loadTraktHistoryError": {
-		"message": "Nie udało się załadować historii Trakt."
+	"loadSimklHistoryError": {
+		"message": "Nie udało się załadować historii Simkl."
 	},
 	"loadingHistory": {
 		"message": "Wczytuje historię"
@@ -244,7 +244,10 @@
 		"message": "Ładowanie propozycji"
 	},
 	"login": {
-		"message": "Zaloguj się przy pomocy Trakt.tv"
+		"message": "Zaloguj się przy pomocy Simkl"
+	},
+	"enterPinAt": {
+		"message": "Wpisz ten kod na"
 	},
 	"logout": {
 		"message": "Wyloguj się"

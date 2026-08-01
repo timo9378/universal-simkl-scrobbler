@@ -3,7 +3,7 @@
 		"message": "Sobre"
 	},
 	"aboutMessage": {
-		"message": "Envie sua atividade nos seus serviços de streaming favoritos para o Trakt.tv!"
+		"message": "Envie sua atividade nos seus serviços de streaming favoritos para o Simkl!"
 	},
 	"add": {
 		"message": "Adicionar"
@@ -27,7 +27,7 @@
 		"message": "Com essa opção ativada, sempre que um erro acontecer, informações sobre ele serão coletadas e enviadas para nós, para que possamos consertá-lo mais rápido e melhorar a extensão. Essas informações incluem: quando o erro aconteceu, o traço do erro, o nome e a versão do seu navegador, e o nome do seu sistema operacional. Esses dados não são compartilhados com nenhum outro serviço."
 	},
 	"appDescription": {
-		"message": "Um sincronizador universal para o Trakt.tv."
+		"message": "Um sincronizador universal para o Simkl."
 	},
 	"autoSync": {
 		"message": "Sincronização Automática"
@@ -96,7 +96,7 @@
 		}
 	},
 	"confirmClearStorageMessage": {
-		"message": "Todas as opções serão resetadas para seus valores padrões e você precisará entrar com o Trakt novamente."
+		"message": "Todas as opções serão resetadas para seus valores padrões e você precisará entrar com o Simkl novamente."
 	},
 	"confirmClearStorageTitle": {
 		"message": "Limpar o armazenamento?"
@@ -121,7 +121,7 @@
 		"message": "Ocorreu um erro ao corrigir o item."
 	},
 	"correctionDialogContent": {
-		"message": "Digite a URL do Trakt correta para $TITLE$ no campo abaixo.",
+		"message": "Digite a URL do Simkl correta para $TITLE$ no campo abaixo.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Digite a URL do Trakt correta para $TITLE$ no campo abaixo ou use uma das sugestões.",
+		"message": "Digite a URL do Simkl correta para $TITLE$ no campo abaixo ou use uma das sugestões.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "ATENÇÃO: Você está corrigindo um item que já foi sincronizado. Se você prosseguir, o item previamente sincronizado será removido do seu histórico no Trakt."
+		"message": "ATENÇÃO: Você está corrigindo um item que já foi sincronizado. Se você prosseguir, o item previamente sincronizado será removido do seu histórico no Simkl."
 	},
 	"couldNotScrobble": {
 		"message": "Não foi possível realizar o scrobble."
@@ -158,13 +158,13 @@
 		"message": "Ocorreu um erro. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Parece que você não está logado. Por favor, abra a extensão e entre com a sua conta do Trakt."
+		"message": "Parece que você não está logado. Por favor, abra a extensão e entre com a sua conta do Simkl."
 	},
 	"errorNotificationNotFound": {
-		"message": "Eita! Não foi possível encontrar o que você está assistindo no Trakt. Por favor, entre em contato conosco e informe o título do item."
+		"message": "Eita! Não foi possível encontrar o que você está assistindo no Simkl. Por favor, entre em contato conosco e informe o título do item."
 	},
 	"errorNotificationServers": {
-		"message": "Não foi possível conectar com os servidores do Trakt. Estamos tentando consertar isso, por favor tente mais tarde."
+		"message": "Não foi possível conectar com os servidores do Simkl. Estamos tentando consertar isso, por favor tente mais tarde."
 	},
 	"from": {
 		"message": "de"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Início"
 	},
-	"invalidTraktUrl": {
-		"message": "Por favor, digite uma URL do Trakt válida!"
+	"invalidSimklUrl": {
+		"message": "Por favor, digite uma URL do Simkl válida!"
 	},
 	"isThisWrong": {
 		"message": "Isso está errado?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Com esta opção desativada, imagens do item sincronizado e do histórico não serão carregadas. Isso é útil para conexões lentas, onde o carregamento de imagens diminui significativamente a velocidade da extensão."
 	},
-	"loadTraktHistoryError": {
-		"message": "Ocorreu um erro ao carregar o histórico do Trakt."
+	"loadSimklHistoryError": {
+		"message": "Ocorreu um erro ao carregar o histórico do Simkl."
 	},
 	"loadingHistory": {
 		"message": "Carregando histórico"
@@ -244,7 +244,10 @@
 		"message": "Carregando sugestões"
 	},
 	"login": {
-		"message": "Entrar com o Trakt.tv"
+		"message": "Entrar com o Simkl"
+	},
+	"enterPinAt": {
+		"message": "Insira este código em"
 	},
 	"logout": {
 		"message": "Sair"

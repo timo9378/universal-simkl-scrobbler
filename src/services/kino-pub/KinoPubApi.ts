@@ -332,9 +332,9 @@ class _KinoPubApi extends ServiceApi {
 				url: `${this.API_URL}/v1/device/notify`,
 				method: 'POST',
 				body: {
-					title: 'Universal Trakt Scrobbler',
+					title: 'Universal Simkl Scrobbler',
 					hardware: 'Browser Extension',
-					software: 'Universal Trakt Scrobbler',
+					software: 'Universal Simkl Scrobbler',
 				},
 			});
 		} catch {

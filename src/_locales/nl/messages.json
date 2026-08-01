@@ -3,7 +3,7 @@
 		"message": "Over"
 	},
 	"aboutMessage": {
-		"message": "Jouw streaming service historiek, rechtstreeks op Trakt.tv!"
+		"message": "Jouw streaming service historiek, rechtstreeks op Simkl!"
 	},
 	"add": {
 		"message": "Toevoegen"
@@ -27,7 +27,7 @@
 		"message": "Indien ingeschakeld wordt er bij het optreden van een fout, informatie doorgestuurd zodat we deze fout snel kunnen oplossen en de extentie kunnen verbeteren. Deze informatie bevat: wanneer deze fout voor kwam, een traceback hiernaar, de naam en versie van uw browser en de naam van uw besturingssysteem. Deze data wordt niet gedeeld met anderen."
 	},
 	"appDescription": {
-		"message": "Een universele synchronisatie extentie voor Trakt.tv."
+		"message": "Een universele synchronisatie extentie voor Simkl."
 	},
 	"autoSync": {
 		"message": "Automatisch synchroniseren"
@@ -121,7 +121,7 @@
 		"message": "Kon het item niet corrigeren."
 	},
 	"correctionDialogContent": {
-		"message": "Voeg de correcte Trakt URL toe voor $TITLE$ in het onderstaande veld.",
+		"message": "Voeg de correcte Simkl URL toe voor $TITLE$ in het onderstaande veld.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Voer de juiste Trakt URL in voor $TITLE$ in het veld hieronder of gebruik een van de suggesties.",
+		"message": "Voer de juiste Simkl URL in voor $TITLE$ in het veld hieronder of gebruik een van de suggesties.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "WAARSCHUWING: U corrigeert een item dat al is gesynchroniseerd. Als u doorgaat, wordt het eerder gesynchroniseerde item verwijderd uit uw Trakt geschiedenis."
+		"message": "WAARSCHUWING: U corrigeert een item dat al is gesynchroniseerd. Als u doorgaat, wordt het eerder gesynchroniseerde item verwijderd uit uw Simkl geschiedenis."
 	},
 	"couldNotScrobble": {
 		"message": "Kon de data niet verwerken."
@@ -158,13 +158,13 @@
 		"message": "Er is een fout opgetreden. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Het lijkt erop dat je niet bent ingelogd. Open de extentie en login met je Trakt account."
+		"message": "Het lijkt erop dat je niet bent ingelogd. Open de extentie en login met je Simkl account."
 	},
 	"errorNotificationNotFound": {
-		"message": "Oeps! We konden niet vinden wat je aan het bekijken bent op Trakt! Laat een bericht achter met de titel van het item."
+		"message": "Oeps! We konden niet vinden wat je aan het bekijken bent op Simkl! Laat een bericht achter met de titel van het item."
 	},
 	"errorNotificationServers": {
-		"message": "We konden geen verbinding maken met de Trakt servers. Probeer het later nog eens."
+		"message": "We konden geen verbinding maken met de Simkl servers. Probeer het later nog eens."
 	},
 	"from": {
 		"message": "van"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Home"
 	},
-	"invalidTraktUrl": {
-		"message": "Geef een geldige Trakt URL in!"
+	"invalidSimklUrl": {
+		"message": "Geef een geldige Simkl URL in!"
 	},
 	"isThisWrong": {
 		"message": "Is dit fout?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Indien deze optie uitgeschakeld is, worden afbeeldingen voor het spelende item en historische items niet geladen. Dit is handiger voor langzamere internetverbindingen, waarbij het laden van afbeeldingen de extensie aanzienlijk vertraagt."
 	},
-	"loadTraktHistoryError": {
-		"message": "Kon de Trakt historiek niet laden."
+	"loadSimklHistoryError": {
+		"message": "Kon de Simkl historiek niet laden."
 	},
 	"loadingHistory": {
 		"message": "Geschiedenis laden"
@@ -244,7 +244,10 @@
 		"message": "Suggesties inladen"
 	},
 	"login": {
-		"message": "Log in met Trakt.tv"
+		"message": "Log in met Simkl"
+	},
+	"enterPinAt": {
+		"message": "Voer deze code in op"
 	},
 	"logout": {
 		"message": "Uitloggen"

@@ -3,7 +3,7 @@
 		"message": "Par"
 	},
 	"aboutMessage": {
-		"message": "Nosūti savas aktivitātes no iecienītākajām straumēšanas platformām uz Trakt.tv!"
+		"message": "Nosūti savas aktivitātes no iecienītākajām straumēšanas platformām uz Simkl!"
 	},
 	"add": {
 		"message": "Pievienot"
@@ -27,7 +27,7 @@
 		"message": "Ja šī opcija ir iespējota, ikreiz, kad rodas kļūda, informācija par to tiks apkopota un nosūtīta mums, lai mēs varētu ātrāk to novērst un uzlabot paplašinājumu. Šī informācija ietver: kļūdas rašanās laiku, kļūdas izsekošanu, pārlūkprogrammas nosaukumu un versiju, kā arī OS nosaukumu. Šie dati netiek koplietoti ne ar vienu citu pakalpojumu."
 	},
 	"appDescription": {
-		"message": "Universāla Trakt.tv sinhronizācija."
+		"message": "Universāla Simkl sinhronizācija."
 	},
 	"autoSync": {
 		"message": "Automātiska sinhronizācija"
@@ -121,7 +121,7 @@
 		"message": "Neizdevās izlabot vienumu."
 	},
 	"correctionDialogContent": {
-		"message": "Zemāk esošajā laukā ievadiet pareizo $TITLE$ Trakt URL.",
+		"message": "Zemāk esošajā laukā ievadiet pareizo $TITLE$ Simkl URL.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Zemāk esošajā laukā ievadiet pareizo $TITLE$ Trakt URL vai izmantojiet kādu no ieteikumiem.",
+		"message": "Zemāk esošajā laukā ievadiet pareizo $TITLE$ Simkl URL vai izmantojiet kādu no ieteikumiem.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "BRĪDINĀJUMS: Tu labo vienumu, kas jau bija sinhronizēts. Ja turpināsi, iepriekš sinhronizētais vienums tiks noņemts no Trakt vēstures."
+		"message": "BRĪDINĀJUMS: Tu labo vienumu, kas jau bija sinhronizēts. Ja turpināsi, iepriekš sinhronizētais vienums tiks noņemts no Simkl vēstures."
 	},
 	"couldNotScrobble": {
 		"message": "Tiešā sinhronizācija (scrobble) neizdevās."
@@ -158,13 +158,13 @@
 		"message": "Radusies kļūda. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Šķiet, ka neesi pieteicies. Lūdzu, atver paplašinājumu un piesakies ar savu Trakt kontu."
+		"message": "Šķiet, ka neesi pieteicies. Lūdzu, atver paplašinājumu un piesakies ar savu Simkl kontu."
 	},
 	"errorNotificationNotFound": {
-		"message": "Ak! Mēs Trakt nevarējām atrast to, ko skaties. Lūdzu, atstāj ziņojumu ar vienuma nosaukumu."
+		"message": "Ak! Mēs Simkl nevarējām atrast to, ko skaties. Lūdzu, atstāj ziņojumu ar vienuma nosaukumu."
 	},
 	"errorNotificationServers": {
-		"message": "Mēs nevarējām sazināties ar Trakt serveriem. Mēs cenšamies to novērst. Lūdzu, vēlāk mēģini vēlreiz."
+		"message": "Mēs nevarējām sazināties ar Simkl serveriem. Mēs cenšamies to novērst. Lūdzu, vēlāk mēģini vēlreiz."
 	},
 	"from": {
 		"message": "no"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Sākums"
 	},
-	"invalidTraktUrl": {
-		"message": "Lūdzu, ievadiet derīgu Trakt URL!"
+	"invalidSimklUrl": {
+		"message": "Lūdzu, ievadiet derīgu Simkl URL!"
 	},
 	"isThisWrong": {
 		"message": "Nav pareizi?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Ja šī opcija ir atspējota, tiešās sinhronizācijas un vēstures vienumu attēli netiks ielādēti. Tas ir noderīgi lēnākiem savienojumiem, kur attēlu ielāde ievērojami palēnina paplašinājumu."
 	},
-	"loadTraktHistoryError": {
-		"message": "Neizdevās ielādēt Trakt vēsturi."
+	"loadSimklHistoryError": {
+		"message": "Neizdevās ielādēt Simkl vēsturi."
 	},
 	"loadingHistory": {
 		"message": "Ielādē vēsturi"
@@ -244,7 +244,10 @@
 		"message": "Ielādē ieteikumus"
 	},
 	"login": {
-		"message": "Pieteikties ar Trakt.tv"
+		"message": "Pieteikties ar Simkl"
+	},
+	"enterPinAt": {
+		"message": "Enter this code at"
 	},
 	"logout": {
 		"message": "Atslēgties"

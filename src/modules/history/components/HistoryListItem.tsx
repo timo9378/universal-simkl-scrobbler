@@ -76,8 +76,8 @@ const _HistoryListItem = ({
 		return stopListeners;
 	}, []);
 
-	const [statusColor, statusMessageName]: [string, MessageName] = item?.trakt
-		? item?.trakt?.watchedAt
+	const [statusColor, statusMessageName]: [string, MessageName] = item?.simkl
+		? item?.simkl?.watchedAt
 			? [green[500], 'itemSynced']
 			: [red[500], 'itemNotSynced']
 		: [grey[700], 'itemSyncStatusUnknown'];
@@ -175,10 +175,10 @@ const _HistoryListItem = ({
 					</Tooltip>
 					<HistoryListItemCard
 						isLoading={item?.isLoading ?? true}
-						item={item?.trakt}
-						name="Trakt"
+						item={item?.simkl}
+						name="Simkl"
 						suggestions={item?.suggestions}
-						imageUrl={item?.trakt?.imageUrl}
+						imageUrl={item?.simkl?.imageUrl}
 						openCorrectionDialog={openCorrectionDialog}
 					/>
 				</>

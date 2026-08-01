@@ -5,6 +5,6 @@ dist
 .env
 *.log
 /.idea/
-/universal-trakt-scrobbler.iml
+/universal-simkl-scrobbler.iml
 package-lock.json
 .DS_Store

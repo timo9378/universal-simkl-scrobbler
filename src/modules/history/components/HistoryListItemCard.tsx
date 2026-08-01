@@ -6,7 +6,7 @@ import { Center } from '@components/Center';
 import { HistoryListItemDivider } from '@components/HistoryListItemDivider';
 import { BackgroundImage } from '@components/BackgroundImage';
 import { isItem, ScrobbleItem } from '@models/Item';
-import { isTraktItem, TraktItem } from '@models/TraktItem';
+import { isSimklItem, SimklItem } from '@models/SimklItem';
 import {
 	Button,
 	Card,
@@ -20,7 +20,7 @@ import {
 
 interface HistoryListItemCardProps {
 	isLoading: boolean;
-	item?: ScrobbleItem | TraktItem | null;
+	item?: ScrobbleItem | SimklItem | null;
 	name: string;
 	suggestions?: Suggestion[] | null;
 	imageUrl?: string | null;
@@ -65,7 +65,7 @@ export const HistoryListItemCard = ({
 					</Typography>
 				);
 			}
-		} else if (isTraktItem(item) && typeof watchedAt === 'undefined') {
+		} else if (isSimklItem(item) && typeof watchedAt === 'undefined') {
 			watchedAtComponent = (
 				<Typography variant="overline">{I18N.translate('loadingHistory')}...</Typography>
 			);
@@ -79,7 +79,7 @@ export const HistoryListItemCard = ({
 					<Typography variant="caption">{I18N.translate('missingWatchedDate')}</Typography>
 				</Button>
 			);
-		} else if (isTraktItem(item) && item.otherWatches?.length) {
+		} else if (isSimklItem(item) && item.otherWatches?.length) {
 			watchedAtComponent = (
 				<Typography variant="overline">
 					<Tooltip
@@ -126,7 +126,7 @@ export const HistoryListItemCard = ({
 	}
 
 	const hasImage: boolean =
-		Shared.storage.options.loadImages && (!!item?.imageUrl || isTraktItem(item) || item === null);
+		Shared.storage.options.loadImages && (!!item?.imageUrl || isSimklItem(item) || item === null);
 	return (
 		<Card
 			variant="outlined"

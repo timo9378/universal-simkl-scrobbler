@@ -1,12 +1,20 @@
-import { Cache } from '@common/Cache';
-import { Requests } from '@common/Requests';
-import { Shared } from '@common/Shared';
 import { ScrobbleItem } from '@models/Item';
 
 export interface Suggestion {
 	type: 'episode' | 'movie';
+	/** Simkl id — of the **show** for episodes, of the movie otherwise. */
 	id: number;
 	title: string;
+
+	/**
+	 * Season and episode numbers, set for episode suggestions.
+	 *
+	 * Trakt gave every episode its own id, so upstream could store just that. Simkl has
+	 * no endpoint that resolves a bare episode id, so an episode correction has to name
+	 * the show plus the numbers.
+	 */
+	season?: number;
+	number?: number;
 
 	/**
 	 * How many submissions the suggestion had.
@@ -20,22 +28,47 @@ export interface SuggestionsDatabaseResponse {
 	result: Partial<Record<string, Suggestion[]>>;
 }
 
+/**
+ * ⚠️ The shared suggestions database is **disabled in this fork**.
+ *
+ * `uts.rafaelgomes.xyz` is upstream's community database and every id in it is a
+ * *Trakt* id. Trakt and Simkl id spaces are unrelated, so a suggestion fetched from
+ * there would resolve to an arbitrary unrelated title — and it would do so silently,
+ * scrobbling the wrong thing to the user's account. Reading from it is worse than
+ * having no suggestions at all, and writing Simkl ids into it would corrupt the
+ * database for upstream's users.
+ *
+ * Corrections the user makes themselves still work: those live in
+ * `Shared.storage.corrections`, keyed by the item's own database id, and never touch
+ * this endpoint.
+ */
 class _CorrectionApi {
-	readonly DATABASE_URL = `${Shared.DATABASE_URL}/correction`;
-	readonly SUGGESTIONS_DATABASE_URL = `${this.DATABASE_URL}/suggestions`;
-
 	/**
 	 * Returns the database ID for a suggestion.
+	 *
+	 * Episodes have to include the numbers: `id` is now the *show* id, so without them
+	 * every episode of a show would collapse onto the same key.
 	 */
-	getSuggestionDatabaseId(suggestion: Pick<Suggestion, 'type' | 'id'>) {
+	getSuggestionDatabaseId(suggestion: Pick<Suggestion, 'type' | 'id' | 'season' | 'number'>) {
+		if (suggestion.type === 'episode') {
+			return `episode_${suggestion.id.toString()}_s${(suggestion.season ?? 0).toString()}e${(
+				suggestion.number ?? 0
+			).toString()}`;
+		}
 		return `${suggestion.type}_${suggestion.id.toString()}`;
 	}
 
 	/**
-	 * Returns a Trakt URL for a suggestion.
+	 * Returns a Simkl URL for a suggestion.
 	 */
 	getSuggestionUrl(suggestion: Suggestion) {
-		return `https://trakt.tv/${suggestion.type}s/${suggestion.id.toString()}`;
+		if (suggestion.type === 'episode') {
+			const base = `https://simkl.com/tv/${suggestion.id.toString()}`;
+			return suggestion.season && suggestion.number
+				? `${base}/season-${suggestion.season.toString()}/episode-${suggestion.number.toString()}`
+				: base;
+		}
+		return `https://simkl.com/movies/${suggestion.id.toString()}`;
 	}
 
 	/**
@@ -49,80 +82,20 @@ class _CorrectionApi {
 			return items;
 		}
 		const newItems = items.map((item) => item.clone());
-		const cache = await Cache.get('suggestions');
-		try {
-			const itemsToFetch: ScrobbleItem[] = [];
-			for (const item of newItems) {
-				if (typeof item.suggestions !== 'undefined') {
-					continue;
-				}
-				const databaseId = item.getDatabaseId();
-				const suggestions = cache.get(databaseId);
-				if (typeof suggestions !== 'undefined') {
-					item.suggestions = suggestions;
-				} else {
-					itemsToFetch.push(item);
-				}
-			}
-			if (itemsToFetch.length > 0) {
-				try {
-					const databaseIds = itemsToFetch.map((item) => item.getDatabaseId()).join(',');
-					const response = await Requests.send({
-						method: 'GET',
-						url: `${this.SUGGESTIONS_DATABASE_URL}?ids=${databaseIds}`,
-					});
-					const json = JSON.parse(response) as SuggestionsDatabaseResponse;
-					for (const item of itemsToFetch) {
-						const databaseId = item.getDatabaseId();
-						const suggestions = json.result[databaseId];
-						item.suggestions = suggestions?.sort((a, b) => {
-							if (a.count > b.count) {
-								return -1;
-							}
-							if (b.count > a.count) {
-								return 1;
-							}
-							return 0;
-						});
-					}
-				} catch (_err) {
-					// Do nothing
-				}
-			}
-		} catch (_err) {
-			// Do nothing
-		}
-		// Set all undefined suggestions to `null` so that we don't try to load them again
+		// Marking every item as `null` rather than `undefined` keeps the rest of the UI on
+		// its "already looked, found nothing" path instead of retrying forever.
 		for (const item of newItems) {
-			const databaseId = item.getDatabaseId();
-			item.suggestions = item.suggestions || null;
-			cache.set(databaseId, item.suggestions);
+			item.suggestions = null;
 		}
-		await Cache.set({ suggestions: cache });
 		return newItems;
 	}
 
 	/**
-	 * Saves a suggestion for an item in the database.
+	 * No-op: see the note on this class. Writing Simkl ids into a Trakt-keyed database
+	 * would corrupt it for upstream's users.
 	 */
-	async saveSuggestion(item: ScrobbleItem, suggestion: Suggestion): Promise<void> {
-		await Requests.send({
-			method: 'PUT',
-			url: this.SUGGESTIONS_DATABASE_URL,
-			body: {
-				corrections: [
-					{
-						id: item.getDatabaseId(),
-						suggestions: [
-							{
-								...suggestion,
-								count: 1,
-							},
-						],
-					},
-				],
-			},
-		});
+	async saveSuggestion(_item: ScrobbleItem, _suggestion: Suggestion): Promise<void> {
+		return Promise.resolve();
 	}
 }
 

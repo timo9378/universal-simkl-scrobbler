@@ -1,16 +1,16 @@
 import { FullView } from '@components/FullView';
-import TraktIconImage from '@images/trakt-icon.png';
+import SimklIconImage from '@images/simkl-icon.png';
 import { Box } from '@mui/material';
 
 interface BackgroundImageProps {
 	imageUrl?: string | null;
-	/** Fallback image in case {@link imageUrl} is falsy. Defaults to the Trakt logo. */
+	/** Fallback image in case {@link imageUrl} is falsy. Defaults to the Simkl logo. */
 	fallbackImageUrl?: string;
 }
 
 export const BackgroundImage = ({
 	imageUrl,
-	fallbackImageUrl = TraktIconImage,
+	fallbackImageUrl = SimklIconImage,
 }: BackgroundImageProps): JSX.Element => {
 	return (
 		<Box>

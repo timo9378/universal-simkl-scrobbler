@@ -25,7 +25,7 @@ export const PopupWatching = ({ item, isPaused }: PopupWatchingProps): JSX.Eleme
 	return (
 		<>
 			<Box>
-				<BackgroundImage imageUrl={item.trakt?.imageUrl || item.imageUrl} />
+				<BackgroundImage imageUrl={item.simkl?.imageUrl || item.imageUrl} />
 				<Box
 					sx={{
 						position: 'relative',
@@ -38,14 +38,14 @@ export const PopupWatching = ({ item, isPaused }: PopupWatchingProps): JSX.Eleme
 				>
 					<PopupInfo>
 						<Typography variant="overline">{I18N.translate('nowScrobbling')}</Typography>
-						{item.trakt?.type === 'episode' ? (
+						{item.simkl?.type === 'episode' ? (
 							<>
-								<Typography variant="h6">{item.trakt.title}</Typography>
+								<Typography variant="h6">{item.simkl.title}</Typography>
 								<Typography variant="subtitle2">{I18N.translate('from')}</Typography>
-								<Typography variant="subtitle1">{item.trakt.show.title}</Typography>
+								<Typography variant="subtitle1">{item.simkl.show.title}</Typography>
 							</>
 						) : (
-							<Typography variant="h6">{item.trakt?.title}</Typography>
+							<Typography variant="h6">{item.simkl?.title}</Typography>
 						)}
 						<Button color="secondary" onClick={() => void openCorrectionDialog()}>
 							<Typography variant="caption">

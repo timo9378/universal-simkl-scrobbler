@@ -3,7 +3,7 @@
 		"message": "Informazioni"
 	},
 	"aboutMessage": {
-		"message": "Invia le tue attività dai tuoi servizi di streaming preferiti a Trakt.tv!"
+		"message": "Invia le tue attività dai tuoi servizi di streaming preferiti a Simkl!"
 	},
 	"add": {
 		"message": "Aggiungi"
@@ -27,7 +27,7 @@
 		"message": "Con questa opzione abilitata, ogni volta che si verifica un bug, le informazioni su di esso saranno raccolte e inviate a noi, in modo che possiamo ripararlo il più velocemente possibile e migliorare l'estensione. Queste informazioni includono: quando il bug si è verificato, il traceback del bug, il nome e la versione del browser, il nome del vostro sistema operativo. Questi dati non sono condivisi con nessun altro servizio."
 	},
 	"appDescription": {
-		"message": "Un sincronizzatore universale per Trakt.tv."
+		"message": "Un sincronizzatore universale per Simkl."
 	},
 	"autoSync": {
 		"message": "Sincronizzazione automatica"
@@ -121,7 +121,7 @@
 		"message": "Impossibile correggere l'elemento."
 	},
 	"correctionDialogContent": {
-		"message": "Inserisci l'URL di Trakt corretto per $TITLE$ nel campo sottostante.",
+		"message": "Inserisci l'URL di Simkl corretto per $TITLE$ nel campo sottostante.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Inserisci l'URL Trakt corretto per $TITLE$ nel campo sottostante oppure usa uno dei suggerimenti.",
+		"message": "Inserisci l'URL Simkl corretto per $TITLE$ nel campo sottostante oppure usa uno dei suggerimenti.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "ATTENZIONE: Stai correggendo un elemento già sincronizzato. Se procedi, l'elemento precedentemente sincronizzato sarà rimosso dalla tua cronologia di Trakt."
+		"message": "ATTENZIONE: Stai correggendo un elemento già sincronizzato. Se procedi, l'elemento precedentemente sincronizzato sarà rimosso dalla tua cronologia di Simkl."
 	},
 	"couldNotScrobble": {
 		"message": "Impossibile registrare le preferenze."
@@ -158,13 +158,13 @@
 		"message": "Si è verificato un errore. 🙁"
 	},
 	"errorNotificationLogin": {
-		"message": "Sembra che tu non abbia effettuato l'accesso. Per favore apri l'estensione e accedi con il tuo account Trakt."
+		"message": "Sembra che tu non abbia effettuato l'accesso. Per favore apri l'estensione e accedi con il tuo account Simkl."
 	},
 	"errorNotificationNotFound": {
-		"message": "Perdincibacco! Non siamo riusciti a trovare in Trakt quello che stai guardando. Per favore, lascia un reporf6 con il titolo dell'elemento."
+		"message": "Perdincibacco! Non siamo riusciti a trovare in Simkl quello che stai guardando. Per favore, lascia un reporf6 con il titolo dell'elemento."
 	},
 	"errorNotificationServers": {
-		"message": "Non siamo riusciti a contattare i server di Trakt. Stiamo cercando di risolvere, per favore riprova più tardi."
+		"message": "Non siamo riusciti a contattare i server di Simkl. Stiamo cercando di risolvere, per favore riprova più tardi."
 	},
 	"from": {
 		"message": "da"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Home"
 	},
-	"invalidTraktUrl": {
-		"message": "Si prega di inserire un URL Trakt valido!"
+	"invalidSimklUrl": {
+		"message": "Si prega di inserire un URL Simkl valido!"
 	},
 	"isThisWrong": {
 		"message": "Questo è sbagliato?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "With this option disabled, images for the scrobbling item and for the history items will not be loaded. This is useful for slower connections, where loading images significantly slows down the extension."
 	},
-	"loadTraktHistoryError": {
-		"message": "Impossibile caricare la cronologia di Trakt."
+	"loadSimklHistoryError": {
+		"message": "Impossibile caricare la cronologia di Simkl."
 	},
 	"loadingHistory": {
 		"message": "Caricamento cronologia..."
@@ -244,7 +244,10 @@
 		"message": "Caricamento dei suggerimenti"
 	},
 	"login": {
-		"message": "Accedi con il tuo account Trakt"
+		"message": "Accedi con il tuo account Simkl"
+	},
+	"enterPinAt": {
+		"message": "Inserisci questo codice su"
 	},
 	"logout": {
 		"message": "Disconnetti"

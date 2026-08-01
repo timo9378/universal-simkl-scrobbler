@@ -1,12 +1,12 @@
 {
-	"name": "universal-trakt-scrobbler",
+	"name": "universal-simkl-scrobbler",
 	"version": "0.7.4",
-	"description": "A universal sync for Trakt.tv.",
-	"author": "trakt-tools",
+	"description": "A universal sync for Simkl. Fork of Universal Trakt Scrobbler by trakt-tools.",
+	"author": "timo9378",
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/trakt-tools/universal-trakt-scrobbler.git"
+		"url": "git://github.com/timo9378/universal-simkl-scrobbler.git"
 	},
 	"scripts": {
 		"build": "cross-env ENV=production webpack --env production",

@@ -448,7 +448,7 @@ class _NetflixApi extends ServiceApi {
 
 		if (hasFailed) {
 			// Without metadata we lose the year and season/episode numbers, but the
-			// history can still be loaded and matched on Trakt by title, so don't fail
+			// history can still be loaded and matched on Simkl by title, so don't fail
 			Shared.errors.warning(
 				'Failed to get metadata for some Netflix history items.',
 				new Error('Metadata requests failed')
@@ -520,7 +520,7 @@ class _NetflixApi extends ServiceApi {
 
 			// `hiddenEpisodeNumbers` is `true` for collections
 			// In this case, the episode should be searched by title instead of season and number,
-			// because the numbering differs between Netflix and Trakt.tv for collections
+			// because the numbering differs between Netflix and Simkl.tv for collections
 			if (historyItem.season?.summary.hiddenEpisodeNumbers === false) {
 				season = historyItem.summary?.season || 0;
 				number = historyItem.summary?.episode || 0;
@@ -630,7 +630,7 @@ class _NetflixApi extends ServiceApi {
 
 			// `hiddenEpisodeNumbers` is `true` for collections
 			// In this case, the episode should be searched by title instead of season and number,
-			// because the numbering differs between Netflix and Trakt.tv for collections
+			// because the numbering differs between Netflix and Simkl.tv for collections
 			if (!video.hiddenEpisodeNumbers) {
 				season = seasonInfo.seq || 0;
 				number = episodeInfo.seq || 0;

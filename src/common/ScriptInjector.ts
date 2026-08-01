@@ -1,4 +1,4 @@
-import { TraktScrobble } from '@apis/TraktScrobble';
+import { SimklScrobble } from '@apis/SimklScrobble';
 import { ContentScriptConnectData, StorageOptionsChangeData } from '@common/Events';
 import { Messaging } from '@common/Messaging';
 import { SessionStorage } from '@common/SessionStorage';
@@ -50,7 +50,7 @@ class _ScriptInjector {
 		}
 		const { scrobblingDetails } = await Shared.storage.get('scrobblingDetails');
 		if (scrobblingDetails && data.tabId === scrobblingDetails.tabId) {
-			await TraktScrobble.stop();
+			await SimklScrobble.stop();
 		}
 	};
 

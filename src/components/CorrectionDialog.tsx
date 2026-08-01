@@ -1,5 +1,5 @@
 import { CorrectionApi, Suggestion } from '@apis/CorrectionApi';
-import { ExactItemDetails, TraktSearch } from '@apis/TraktSearch';
+import { ExactItemDetails, SimklSearch } from '@apis/SimklSearch';
 import { BrowserStorage } from '@common/BrowserStorage';
 import { Cache } from '@common/Cache';
 import { CorrectionDialogShowData } from '@common/Events';
@@ -109,8 +109,8 @@ export const CorrectionDialog = (): JSX.Element => {
 		const url = target.value;
 		setDialog((prevDialog) => ({
 			...prevDialog,
-			type: url.includes('shows') ? 'episode' : 'movie',
-			traktId: 0,
+			type: url.includes('/movies/') ? 'movie' : 'episode',
+			simklId: 0,
 			url: target.value,
 		}));
 	};
@@ -139,29 +139,41 @@ export const CorrectionDialog = (): JSX.Element => {
 				exactItemDetails = { url };
 			}
 			const newItem = oldItem.clone();
-			delete newItem.trakt;
+			delete newItem.simkl;
 			delete newItem.imageUrl;
 
 			const databaseId = newItem.getDatabaseId();
 
-			const caches = await Cache.get(['itemsToTraktItems', 'traktItems', 'urlsToTraktItems']);
-			caches.itemsToTraktItems.set(databaseId, '');
+			const caches = await Cache.get(['itemsToSimklItems', 'simklItems', 'urlsToSimklItems']);
+			caches.itemsToSimklItems.set(databaseId, '');
 			if ('url' in exactItemDetails) {
-				caches.urlsToTraktItems.set(exactItemDetails.url, '');
+				caches.urlsToSimklItems.set(exactItemDetails.url, '');
 			}
-			newItem.trakt = await TraktSearch.find(newItem, caches, exactItemDetails);
+			newItem.simkl = await SimklSearch.find(newItem, caches, exactItemDetails);
 			await Cache.set(caches);
 
-			if (!newItem.trakt) {
+			if (!newItem.simkl) {
 				throw new Error('Failed to find item');
 			}
 			if (!suggestion) {
-				suggestion = {
-					type: newItem.trakt.type,
-					id: newItem.trakt.id,
-					title: newItem.trakt.title,
-					count: 1,
-				};
+				suggestion =
+					newItem.simkl.type === 'episode'
+						? {
+								type: 'episode',
+								// The show id, not the episode id — Simkl can't resolve a bare episode id,
+								// so the season/episode numbers travel with it. See `Suggestion`.
+								id: newItem.simkl.show.id,
+								season: newItem.simkl.season,
+								number: newItem.simkl.number,
+								title: newItem.simkl.title,
+								count: 1,
+							}
+						: {
+								type: 'movie',
+								id: newItem.simkl.id,
+								title: newItem.simkl.title,
+								count: 1,
+							};
 			}
 			let { corrections } = await Shared.storage.get('corrections');
 			if (!corrections) {
@@ -206,14 +218,14 @@ export const CorrectionDialog = (): JSX.Element => {
 			}
 			const oldItem = dialog.item;
 			const newItem = oldItem.clone();
-			delete newItem.trakt;
+			delete newItem.simkl;
 			delete newItem.imageUrl;
 
 			const databaseId = newItem.getDatabaseId();
 
-			const caches = await Cache.get(['itemsToTraktItems', 'traktItems', 'urlsToTraktItems']);
-			caches.itemsToTraktItems.set(databaseId, '');
-			newItem.trakt = await TraktSearch.find(newItem, caches);
+			const caches = await Cache.get(['itemsToSimklItems', 'simklItems', 'urlsToSimklItems']);
+			caches.itemsToSimklItems.set(databaseId, '');
+			newItem.simkl = await SimklSearch.find(newItem, caches);
 			await Cache.set(caches);
 
 			let { corrections } = await Shared.storage.get('corrections');
@@ -245,8 +257,14 @@ export const CorrectionDialog = (): JSX.Element => {
 		}));
 	};
 
+	// Simkl page URLs, e.g.
+	//   https://simkl.com/tv/548312/stranger-things/season-1/episode-1/
+	//   https://simkl.com/anime/46206/sword-art-online-ii/season-1/episode-1/
+	//   https://simkl.com/movies/53282/the-dark-knight
+	// The ids are numeric and the slug between them is optional, so it is skipped rather
+	// than captured. Trakt's `/shows/{slug}/seasons/{n}/episodes/{n}` form is gone.
 	const validUrlRegex =
-		/\/shows\/(?<show>[\w-]+)\/seasons\/(?<season>[\w-]+)\/episodes\/(?<episode>[\w-]+)|\/movies\/(?<movie>[\w-]+)/;
+		/\/(?:tv|anime)\/(?<show>\d+)(?:\/[^/]+)?\/season-(?<season>\d+)\/episode-(?<episode>\d+)|\/movies\/(?<movie>\d+)/;
 
 	const isValidUrl = (url: string): boolean => {
 		return !!validUrlRegex.exec(url);
@@ -259,7 +277,7 @@ export const CorrectionDialog = (): JSX.Element => {
 		}
 		const { show, season, episode, movie } = matches.groups;
 		if (show && season && episode) {
-			return `/shows/${show}/seasons/${season}/episodes/${episode}`;
+			return `/tv/${show}/season-${season}/episode-${episode}`;
 		}
 		if (movie) {
 			return `/movies/${movie}`;
@@ -301,7 +319,7 @@ export const CorrectionDialog = (): JSX.Element => {
 	const [urlLabel, urlError] =
 		!dialog.url || isValidUrl(dialog.url)
 			? ['URL', false]
-			: [I18N.translate('invalidTraktUrl'), true];
+			: [I18N.translate('invalidSimklUrl'), true];
 
 	return (
 		<CustomDialogRoot
@@ -317,7 +335,7 @@ export const CorrectionDialog = (): JSX.Element => {
 			) : (
 				<>
 					<DialogContent>
-						{dialog.item?.trakt?.watchedAt && (
+						{dialog.item?.simkl?.watchedAt && (
 							<DialogContentText color="error">
 								{I18N.translate('correctionDialogSyncedWarning')}
 							</DialogContentText>
@@ -385,7 +403,7 @@ export const CorrectionDialog = (): JSX.Element => {
 							id="correction-dialog-url"
 							label={urlLabel}
 							error={urlError}
-							placeholder="https://trakt.tv/shows/dark/seasons/1/episodes/1"
+							placeholder="https://simkl.com/tv/46128/dark/season-1/episode-1"
 							value={dialog.url}
 							autoFocus
 							fullWidth

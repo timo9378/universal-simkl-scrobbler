@@ -2,7 +2,7 @@ import { Cache } from '@common/Cache';
 import { Requests } from '@common/Requests';
 import { Shared } from '@common/Shared';
 import { ScrobbleItem } from '@models/Item';
-import { TraktItem } from '@models/TraktItem';
+import { SimklItem } from '@models/SimklItem';
 
 export interface TmdbApiConfig {
 	baseUrl: string;
@@ -57,8 +57,6 @@ class _TmdbApi {
 	readonly API_VERSION = '3';
 	readonly API_URL = `https://api.themoviedb.org/${this.API_VERSION}`;
 	readonly CONFIGURATION_URL = `${this.API_URL}/configuration`;
-	readonly DATABASE_URL = `${Shared.DATABASE_URL}/tmdb`;
-	readonly IMAGES_DATABASE_URL = `${this.DATABASE_URL}/images`;
 
 	private config?: TmdbApiConfig | null;
 
@@ -100,7 +98,7 @@ class _TmdbApi {
 		}
 	}
 
-	private async findImage(item?: TraktItem | null): Promise<string | null> {
+	private async findImage(item?: SimklItem | null): Promise<string | null> {
 		if (typeof this.config === 'undefined') {
 			await this.activate();
 		}
@@ -134,7 +132,7 @@ class _TmdbApi {
 		return null;
 	}
 
-	private getItemUrl(item: TraktItem): string {
+	private getItemUrl(item: SimklItem): string {
 		let type = '';
 		let path = '';
 		switch (item.type) {
@@ -165,7 +163,7 @@ class _TmdbApi {
 	 * If all images have already been loaded, returns the same parameter array, otherwise returns a new array for immutability.
 	 */
 	async loadImages(items: ScrobbleItem[]): Promise<ScrobbleItem[]> {
-		const hasLoadedImages = !items.some((item) => typeof item.trakt?.imageUrl === 'undefined');
+		const hasLoadedImages = !items.some((item) => typeof item.simkl?.imageUrl === 'undefined');
 		if (hasLoadedImages) {
 			return items;
 		}
@@ -174,60 +172,39 @@ class _TmdbApi {
 		try {
 			const itemsToFetch: ScrobbleItem[] = [];
 			for (const item of newItems) {
-				if (!item.trakt || typeof item.trakt.imageUrl !== 'undefined') {
+				if (!item.simkl || typeof item.simkl.imageUrl !== 'undefined') {
 					continue;
 				}
-				const databaseId = item.trakt.getDatabaseId();
+				const databaseId = item.simkl.getDatabaseId();
 				const imageUrl = cache.get(databaseId);
 				if (typeof imageUrl !== 'undefined') {
-					item.trakt.imageUrl = imageUrl;
+					item.simkl.imageUrl = imageUrl;
 				} else {
 					itemsToFetch.push(item);
 				}
 			}
-			if (itemsToFetch.length > 0) {
-				let json;
-				try {
-					const response = await Requests.send({
-						method: 'PUT',
-						url: this.IMAGES_DATABASE_URL,
-						body: {
-							items: itemsToFetch.map((item) => ({
-								type: item.trakt?.type,
-								id: item.trakt?.id,
-								tmdbId: item.trakt?.tmdbId,
-								...(item.trakt?.type === 'episode'
-									? {
-											season: item.trakt?.season,
-											episode: item.trakt?.number,
-										}
-									: {}),
-							})),
-						},
-					});
-					json = JSON.parse(response) as ImagesDatabaseResponse;
-				} catch (_err) {
-					// Do nothing
+			// Upstream batched these through its own image service at `uts.rafaelgomes.xyz`
+			// and only called TMDB directly when that failed. Those routes now return 404,
+			// so the batch request was a guaranteed round-trip to nowhere before every
+			// fallback; it is gone and TMDB is queried directly. Most items never reach
+			// here anyway — SimklSearch fills `imageUrl` in from Simkl's own poster/still.
+			for (const item of itemsToFetch) {
+				if (!item.simkl) {
+					continue;
 				}
-				for (const item of itemsToFetch) {
-					if (!item.trakt) {
-						continue;
-					}
-					const databaseId = item.trakt.getDatabaseId();
-					item.trakt.imageUrl = json?.result[databaseId] || (await this.findImage(item.trakt));
-				}
+				item.simkl.imageUrl = await this.findImage(item.simkl);
 			}
 		} catch (_err) {
 			// Do nothing
 		}
 		// Set all undefined images to `null` so that we don't try to load them again
 		for (const item of newItems) {
-			if (!item.trakt) {
+			if (!item.simkl) {
 				continue;
 			}
-			const databaseId = item.trakt.getDatabaseId();
-			item.trakt.imageUrl = item.trakt.imageUrl || null;
-			cache.set(databaseId, item.trakt.imageUrl);
+			const databaseId = item.simkl.getDatabaseId();
+			item.simkl.imageUrl = item.simkl.imageUrl || null;
+			cache.set(databaseId, item.simkl.imageUrl);
 		}
 		await Cache.set({ tmdbImageUrls: cache });
 		return newItems;

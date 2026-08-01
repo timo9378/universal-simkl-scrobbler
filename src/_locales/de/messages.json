@@ -3,7 +3,7 @@
 		"message": "Über"
 	},
 	"aboutMessage": {
-		"message": "Sende die Aktivitäten deiner favorisierten Streaming-Anbieter an Trakt.tv!"
+		"message": "Sende die Aktivitäten deiner favorisierten Streaming-Anbieter an Simkl!"
 	},
 	"add": {
 		"message": "Hinzufügen"
@@ -27,7 +27,7 @@
 		"message": "Wenn die Option aktiviert ist, wird immer wenn ein Fehler auftritt, Informationen darüber gesammelt und an uns weitergeleitet, sodass wir enstehende Fehler schneller beheben und die Erweiterung verbessern können. Diese Informationen beinhalten: wann der Fehler aufgetreten ist, die zurückverfolgung des Fehlers, den Namen und die Version deines Browsers, und den Namen des Betriebssystems. Diese Daten werden nicht mit anderen Diensten geteilt."
 	},
 	"appDescription": {
-		"message": "Eine universelle Synchronisierung für Trakt.tv."
+		"message": "Eine universelle Synchronisierung für Simkl."
 	},
 	"autoSync": {
 		"message": "Automatische Synchronisierung"
@@ -121,7 +121,7 @@
 		"message": "Fehler beim Korrigieren des Elements."
 	},
 	"correctionDialogContent": {
-		"message": "Gib die korrekte Trakt-URL für $TITLE$ in das Feld unten ein.",
+		"message": "Gib die korrekte Simkl-URL für $TITLE$ in das Feld unten ein.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Gib die korrekte Trakt-URL für $TITLE$ in das untenstehende Feld ein oder verwende einen der Vorschläge.",
+		"message": "Gib die korrekte Simkl-URL für $TITLE$ in das untenstehende Feld ein oder verwende einen der Vorschläge.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "WARNUNG: Du korrigierst ein bereits synchronisiertes Element. Wenn du fortfährst, wird das Element aus dem Trakt-Verlauf entfernt."
+		"message": "WARNUNG: Du korrigierst ein bereits synchronisiertes Element. Wenn du fortfährst, wird das Element aus dem Simkl-Verlauf entfernt."
 	},
 	"couldNotScrobble": {
 		"message": "Konnte nicht scrobblen."
@@ -158,13 +158,13 @@
 		"message": "Ein Fehler ist aufgetreten. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Sieht so aus, als hättest du dich nicht eingeloggt. Bitte öffne die Erweiterung und logge dich mit deinem Trakt Konto ein."
+		"message": "Sieht so aus, als hättest du dich nicht eingeloggt. Bitte öffne die Erweiterung und logge dich mit deinem Simkl Konto ein."
 	},
 	"errorNotificationNotFound": {
-		"message": "Oh verdammt! Wir konnten, was du gesehen hast, nicht in Trakt finden. Bitte hinterlasse einen Bericht mit dem Titel des Elements."
+		"message": "Oh verdammt! Wir konnten, was du gesehen hast, nicht in Simkl finden. Bitte hinterlasse einen Bericht mit dem Titel des Elements."
 	},
 	"errorNotificationServers": {
-		"message": "Wir konnten den Trakt Server nicht erreichen. Wir versuchen den Fehler zu beheben, bitte versuche es später erneut."
+		"message": "Wir konnten den Simkl Server nicht erreichen. Wir versuchen den Fehler zu beheben, bitte versuche es später erneut."
 	},
 	"from": {
 		"message": "von"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Start"
 	},
-	"invalidTraktUrl": {
-		"message": "Bitte gib eine gültige Trakt URL ein!"
+	"invalidSimklUrl": {
+		"message": "Bitte gib eine gültige Simkl URL ein!"
 	},
 	"isThisWrong": {
 		"message": "Ist das falsch?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Wenn diese Option deaktiviert ist, werden Bilder für das Scrobblen und für den Verlauf nicht geladen. Dies ist nützlich für langsame Verbindungen, bei denen das Laden von Bildern die Erweiterung deutlich verlangsamt."
 	},
-	"loadTraktHistoryError": {
-		"message": "Fehler beim laden des Trakt Verlaufs."
+	"loadSimklHistoryError": {
+		"message": "Fehler beim laden des Simkl Verlaufs."
 	},
 	"loadingHistory": {
 		"message": "Lade Verlauf"
@@ -244,7 +244,10 @@
 		"message": "Vorschläge werden geladen"
 	},
 	"login": {
-		"message": "Mit Trakt.tv anmelden"
+		"message": "Mit Simkl anmelden"
+	},
+	"enterPinAt": {
+		"message": "Gib diesen Code hier ein"
 	},
 	"logout": {
 		"message": "Abmelden"

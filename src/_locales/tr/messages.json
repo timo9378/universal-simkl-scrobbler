@@ -3,7 +3,7 @@
 		"message": "Hakkında"
 	},
 	"aboutMessage": {
-		"message": "En sevdiğiniz yayın servislerindeki etkinliğinizi Trakt.tv'ye gönderin!"
+		"message": "En sevdiğiniz yayın servislerindeki etkinliğinizi Simkl'ye gönderin!"
 	},
 	"add": {
 		"message": "Ekle"
@@ -27,7 +27,7 @@
 		"message": "Bu seçenek etkinleştirildiğinde, bir hata oluştuğunda, daha hızlı düzeltebilmemiz ve uzantıyı iyileştirebilmemiz için bununla ilgili bilgiler toplanacak ve bize gönderilecektir. Bu bilgiler şunları içerir: hatanın ne zaman oluştuğu, hatanın geri izlenmesi için adımları, tarayıcınızın adı ve sürümü ve işletim sisteminizin adı. Bu veriler başka hiçbir hizmetle paylaşılmaz."
 	},
 	"appDescription": {
-		"message": "Trakt.tv için evrensel senkroniazsyon aracı."
+		"message": "Simkl için evrensel senkroniazsyon aracı."
 	},
 	"autoSync": {
 		"message": "Otomatik senkronizasyon"
@@ -121,7 +121,7 @@
 		"message": "Öğe düzeltilemedi."
 	},
 	"correctionDialogContent": {
-		"message": "Aşağıdaki $TITLE$ öğesi için doğru Trakt adresini girin.",
+		"message": "Aşağıdaki $TITLE$ öğesi için doğru Simkl adresini girin.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Aşağıdaki alana $TITLE$ için doğru Trakt adresini girin veya önerilerden birini kullanın.",
+		"message": "Aşağıdaki alana $TITLE$ için doğru Simkl adresini girin veya önerilerden birini kullanın.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "UYARI: Zaten senkronize edilmiş bir öğyeyi düzeltiyorsunuz. Eğer devam ederseniz, önceden senkronize edilmiş olan öğe Trakt geçmişnizden kaldırılacaktır."
+		"message": "UYARI: Zaten senkronize edilmiş bir öğyeyi düzeltiyorsunuz. Eğer devam ederseniz, önceden senkronize edilmiş olan öğe Simkl geçmişnizden kaldırılacaktır."
 	},
 	"couldNotScrobble": {
 		"message": "Listelenemedi."
@@ -158,13 +158,13 @@
 		"message": "Bir hata meydana geldi. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Görünüşe göre giriş yapmamışsınız. Lütfen eklentiyi açın ve Trakt hesabınıza giriş yapın."
+		"message": "Görünüşe göre giriş yapmamışsınız. Lütfen eklentiyi açın ve Simkl hesabınıza giriş yapın."
 	},
 	"errorNotificationNotFound": {
-		"message": "Aman! Trakt't üzerinde izlediğinizi bulamadık. Lütfen öğenin başlığını içeren bir rapor oluşturun."
+		"message": "Aman! Simkl't üzerinde izlediğinizi bulamadık. Lütfen öğenin başlığını içeren bir rapor oluşturun."
 	},
 	"errorNotificationServers": {
-		"message": "Maalesef Trakt sunucularına ulaşamadık. Düzeltmeye çalışıyoruz, lütfen daha sonra tekrar deneyin."
+		"message": "Maalesef Simkl sunucularına ulaşamadık. Düzeltmeye çalışıyoruz, lütfen daha sonra tekrar deneyin."
 	},
 	"from": {
 		"message": "kimden"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Ana sayfa"
 	},
-	"invalidTraktUrl": {
-		"message": "Lütfen geçerli bir Trakt adresi girin!"
+	"invalidSimklUrl": {
+		"message": "Lütfen geçerli bir Simkl adresi girin!"
 	},
 	"isThisWrong": {
 		"message": "Bu yanlış mı?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Bu seçenek devre dışı bırakıldığında, listelenecek öğe'nin ve geçmiş sayfasının resimleri yüklenmeyecektir. Resim yüklemek uzantıyı önemli ölçüde yavaşlattığı için yavaş bağlantılar için kullanışlıdır."
 	},
-	"loadTraktHistoryError": {
-		"message": "Trakt geçmişi yüklenemedi."
+	"loadSimklHistoryError": {
+		"message": "Simkl geçmişi yüklenemedi."
 	},
 	"loadingHistory": {
 		"message": "Geçmiş yükleniyor"
@@ -244,7 +244,10 @@
 		"message": "Öneriler yükleniyor"
 	},
 	"login": {
-		"message": "Trakt.tv ile giriş yap"
+		"message": "Simkl ile giriş yap"
+	},
+	"enterPinAt": {
+		"message": "Bu kodu şurada girin"
 	},
 	"logout": {
 		"message": "Çıkış yap"

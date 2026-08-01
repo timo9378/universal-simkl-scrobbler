@@ -67,7 +67,7 @@ class _Utils {
 	}
 
 	/**
-	 * Converts for required format for trakt api
+	 * Converts for required format for simkl api
 	 */
 	convertToISOString(unixDate: number | undefined) {
 		if (!unixDate) {

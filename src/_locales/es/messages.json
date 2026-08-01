@@ -3,7 +3,7 @@
 		"message": "Acerca de"
 	},
 	"aboutMessage": {
-		"message": "¡Envía tu actividad desde tus servicios favoritos de streaming a Trakt.tv!"
+		"message": "¡Envía tu actividad desde tus servicios favoritos de streaming a Simkl!"
 	},
 	"add": {
 		"message": "Añadir"
@@ -27,7 +27,7 @@
 		"message": "Con esta opción activada, cada vez que ocurra un error, se recopilará información sobre ella y se nos enviará para que podamos arreglarlo más rápido y mejorar la extensión. Esta información incluye: cuando ocurrió el error, el seguimiento del error, el nombre y la versión de tu navegador, y el nombre de tu sistema operativo. Estos datos no se comparten con ningún otro servicio."
 	},
 	"appDescription": {
-		"message": "Una sincronización universal para Trakt.tv."
+		"message": "Una sincronización universal para Simkl."
 	},
 	"autoSync": {
 		"message": "Sincronización Automática"
@@ -121,7 +121,7 @@
 		"message": "Error al corregir el elemento."
 	},
 	"correctionDialogContent": {
-		"message": "Introduce la URL correcta de Trakt para $TITLE$ en el campo inferior.",
+		"message": "Introduce la URL correcta de Simkl para $TITLE$ en el campo inferior.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -129,7 +129,7 @@
 		}
 	},
 	"correctionDialogContentWithSuggestions": {
-		"message": "Introduce la URL correcta de Trakt para $TITLE$ en el campo inferior o utiliza una de las sugerencias.",
+		"message": "Introduce la URL correcta de Simkl para $TITLE$ en el campo inferior o utiliza una de las sugerencias.",
 		"placeholders": {
 			"title": {
 				"content": "$1"
@@ -137,7 +137,7 @@
 		}
 	},
 	"correctionDialogSyncedWarning": {
-		"message": "ATENCIÓN: Estás corrigiendo un elemento que ya estaba sincronizado. Si sigues, el elemento previamente sincronizado será eliminado de tu historial de Trakt."
+		"message": "ATENCIÓN: Estás corrigiendo un elemento que ya estaba sincronizado. Si sigues, el elemento previamente sincronizado será eliminado de tu historial de Simkl."
 	},
 	"couldNotScrobble": {
 		"message": "No se pudo registrar."
@@ -158,13 +158,13 @@
 		"message": "Se ha producido un error. :("
 	},
 	"errorNotificationLogin": {
-		"message": "Parece que no has iniciado sesión. Por favor, abre la extensión e inicia sesión con tu cuenta de Trakt."
+		"message": "Parece que no has iniciado sesión. Por favor, abre la extensión e inicia sesión con tu cuenta de Simkl."
 	},
 	"errorNotificationNotFound": {
-		"message": "¡Oh, vaya! No pudimos encontrar lo que estás viendo en Trakt. Por favor, deja un informe con el título del elemento."
+		"message": "¡Oh, vaya! No pudimos encontrar lo que estás viendo en Simkl. Por favor, deja un informe con el título del elemento."
 	},
 	"errorNotificationServers": {
-		"message": "No pudimos conectar con los servidores de Trakt. Estamos intentando arreglarlo, por favor inténtalo de nuevo más tarde."
+		"message": "No pudimos conectar con los servidores de Simkl. Estamos intentando arreglarlo, por favor inténtalo de nuevo más tarde."
 	},
 	"from": {
 		"message": "de"
@@ -204,8 +204,8 @@
 	"home": {
 		"message": "Inicio"
 	},
-	"invalidTraktUrl": {
-		"message": "¡Por favor, introduce una URL de Trakt válida!"
+	"invalidSimklUrl": {
+		"message": "¡Por favor, introduce una URL de Simkl válida!"
 	},
 	"isThisWrong": {
 		"message": "¿Es esto erróneo?"
@@ -234,8 +234,8 @@
 	"loadImagesDescription": {
 		"message": "Con esta opción deshabilitada, las imágenes para el elemento en registro y para los elementos del historial no se cargarán. Esto es útil para conexiones más lentas, donde cargar imágenes ralentiza significativamente la extensión."
 	},
-	"loadTraktHistoryError": {
-		"message": "Error al cargar el historial de Trakt."
+	"loadSimklHistoryError": {
+		"message": "Error al cargar el historial de Simkl."
 	},
 	"loadingHistory": {
 		"message": "Cargando historial"
@@ -244,7 +244,10 @@
 		"message": "Cargando sugerencias"
 	},
 	"login": {
-		"message": "Iniciar sesión con Trakt.tv"
+		"message": "Iniciar sesión con Simkl"
+	},
+	"enterPinAt": {
+		"message": "Introduce este código en"
 	},
 	"logout": {
 		"message": "Cerrar sesión"

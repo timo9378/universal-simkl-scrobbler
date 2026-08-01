@@ -1,4 +1,4 @@
-import { TraktAuthDetails } from '@apis/TraktAuth';
+import { SimklAuthDetails, SimklPendingPin } from '@apis/SimklAuth';
 import { Event, EventData } from '@common/Events';
 import { RequestDetails } from '@common/Requests';
 import { RequestError, RequestErrorOptions } from '@common/RequestError';
@@ -13,8 +13,8 @@ export interface MessageRequests {
 	'connect-content-script': ConnectContentScriptMessage;
 	'open-tab': OpenTabMessage;
 	'get-tab-id': GetTabIdMessage;
-	'validate-trakt-token': ValidateTraktTokenMessage;
-	'finish-login': FinishLoginMessage;
+	'validate-simkl-token': ValidateSimklTokenMessage;
+	'get-pending-pin': GetPendingPinMessage;
 	login: LoginMessage;
 	logout: LogoutMessage;
 	'set-title': SetTitleMessage;
@@ -36,9 +36,9 @@ export interface ReturnTypes {
 	'connect-content-script': void;
 	'open-tab': WebExtTabs.Tab | null;
 	'get-tab-id': number | null;
-	'validate-trakt-token': TraktAuthDetails | null;
-	'finish-login': void;
-	login: TraktAuthDetails;
+	'validate-simkl-token': SimklAuthDetails | null;
+	'get-pending-pin': SimklPendingPin | null;
+	login: SimklAuthDetails;
 	logout: void;
 	'set-title': void;
 	'set-active-icon': void;
@@ -67,13 +67,18 @@ export interface GetTabIdMessage {
 	action: 'get-tab-id';
 }
 
-export interface ValidateTraktTokenMessage {
-	action: 'validate-trakt-token';
+export interface ValidateSimklTokenMessage {
+	action: 'validate-simkl-token';
 }
 
-export interface FinishLoginMessage {
-	action: 'finish-login';
-	redirectUrl: string;
+/**
+ * Asks the background page for the PIN currently awaiting approval, so the login page
+ * can show it. Simkl's `/pin/{code}` page normally pre-fills the code, but if that
+ * ever stops working the code would be invisible and login impossible — this is the
+ * safety net. Returns `null` when no PIN flow is in progress.
+ */
+export interface GetPendingPinMessage {
+	action: 'get-pending-pin';
 }
 
 export interface LoginMessage {

@@ -34,7 +34,7 @@ class _RequestsManager {
 			const filters: WebExtWebRequest.RequestFilter = {
 				types: ['xmlhttprequest'],
 				urls: [
-					'*://*.trakt.tv/*',
+					'*://*.simkl.com/*',
 					...getServices()
 						.map((service) => service.hostPatterns)
 						.flat(),
