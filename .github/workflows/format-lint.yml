@@ -13,15 +13,24 @@ jobs:
     name: Check format/lint
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Run check
         run: pnpm run check
+      # `pnpm run check` 是 tsc + biome，兩個都看不到資產路徑。這個 fork 把
+      # trakt-icon.png 改名成 simkl-icon.png 時，程式碼裡的引用改了、檔案沒改，
+      # tsc 全綠，是 webpack 解析 `@images/simkl-icon.png` 才炸出來的。
+      # 所以 build 也要當成門檻，不能只跑型別檢查。
+      #
+      # 這裡不需要 SIMKL_CLIENT_ID——沒有它 build 一樣會過，這步只是要編譯結果，
+      # 不是要一個能用的擴充功能（那是 release.yml 的事，它會擋沒設 secret 的情況）。
+      - name: Build
+        run: pnpm run build
