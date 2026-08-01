@@ -7,6 +7,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <a href="https://github.com/timo9378/universal-simkl-scrobbler/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/timo9378/universal-simkl-scrobbler"></a>
   <img alt="Status: untested" src="https://img.shields.io/badge/status-builds%2C%20not%20yet%20field--tested-orange.svg">
 </p>
 
@@ -17,6 +18,30 @@
 > real episode on a real streaming service. Expect to find things — especially around episode
 > matching for anime, where absolute numbering and Simkl's AniDB-based seasons disagree with
 > what services report.
+
+## Install
+
+There is no store listing — download the zip from
+**[the latest release](https://github.com/timo9378/universal-simkl-scrobbler/releases/latest)**
+and load it unpacked.
+
+**Chrome / Edge** — `chrome.zip`
+
+1. Extract it somewhere permanent. The browser reads that folder on every start, so don't
+   delete it afterwards.
+2. Open `chrome://extensions/` (Edge: `edge://extensions/`).
+3. Turn on **Developer mode**.
+4. Click **Load unpacked** and pick the extracted folder.
+
+**Firefox** — `firefox.zip`
+
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on** and pick the zip itself — no need to extract.
+3. Temporary add-ons are removed when Firefox restarts. That's Firefox's rule for unsigned
+   extensions, not something this fork can work around.
+
+Then click the extension icon → **Login with Simkl**. A tab opens with a login code already
+filled in; confirm it there.
 
 ---
 
