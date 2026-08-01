@@ -7,13 +7,16 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Status: work in progress" src="https://img.shields.io/badge/status-work%20in%20progress-orange.svg">
+  <img alt="Status: untested" src="https://img.shields.io/badge/status-builds%2C%20not%20yet%20field--tested-orange.svg">
 </p>
 
-> **Status: work in progress — not usable yet.**
-> The Trakt→Simkl backend swap is not implemented. Right now this is an unmodified fork of
-> upstream, made public so the reasoning below is on the record. Don't install this expecting
-> it to work.
+> **Status: the Trakt→Simkl swap is implemented; it has not been field-tested.**
+>
+> Every endpoint was verified against the live Simkl API while writing it, and `tsc`, `biome`
+> and the webpack build are all clean. What hasn't happened yet is a real browser watching a
+> real episode on a real streaming service. Expect to find things — especially around episode
+> matching for anime, where absolute numbering and Simkl's AniDB-based seasons disagree with
+> what services report.
 
 ---
 
