@@ -92,6 +92,22 @@ export const OptionsListItem = ({ option }: OptionsListItemProps): JSX.Element =
 			break;
 	}
 
+	// `ListItemSecondaryAction` positions its child absolutely against the right edge,
+	// which works for a switch or a select but not for a text field wide enough to hold
+	// a 64-character client ID — it lands on top of the description instead of beside
+	// it. Text options stack under the label and take the full width instead.
+	if (option.type === 'text') {
+		return (
+			<OptionsListItemRoot sx={{ display: 'block' }}>
+				<ListItemText
+					primary={I18N.translate(option.id)}
+					secondary={I18N.translate(`${option.id}Description`)}
+				/>
+				{secondaryAction}
+			</OptionsListItemRoot>
+		);
+	}
+
 	return (
 		<OptionsListItemRoot>
 			<ListItemText

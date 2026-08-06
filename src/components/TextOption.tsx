@@ -58,7 +58,11 @@ export const TextOption = ({
 			onKeyDown={onKeyDown}
 			size="small"
 			spellCheck={false}
-			sx={{ minWidth: 320, ...sx }}
+			fullWidth
+			// A client ID is 64 hex characters. Left at the default the field shows about
+			// a third of one, so pasting gives no way to eyeball whether it went in whole.
+			slotProps={{ input: { sx: { fontFamily: 'monospace' } } }}
+			sx={{ maxWidth: 640, mt: 1, ...sx }}
 		/>
 	);
 };
