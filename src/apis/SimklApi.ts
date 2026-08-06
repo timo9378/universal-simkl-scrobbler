@@ -40,6 +40,12 @@ export class SimklApi {
 
 	isActivated = false;
 
+	/**
+	 * The client id `requests` was wrapped with. Compared on every `activate()` so that
+	 * changing the id in the options page takes effect without reloading the extension.
+	 */
+	activatedClientId: string | null = null;
+
 	constructor() {
 		this.HOST_URL = 'https://simkl.com';
 		this.API_URL = 'https://api.simkl.com';
@@ -76,7 +82,7 @@ export class SimklApi {
 	}
 
 	async activate(): Promise<void> {
-		if (this.isActivated) {
+		if (this.isActivated && this.activatedClientId === Shared.clientId) {
 			return;
 		}
 
@@ -89,8 +95,11 @@ export class SimklApi {
 			headers['Authorization'] = `Bearer ${values.auth.access_token}`;
 		}
 
-		this.requests = withHeaders(headers, this.requests);
+		// Wrap the base module, not `this.requests` — re-activating after a client id
+		// change would otherwise stack another proxy on the previous one every time.
+		this.requests = withHeaders(headers, Requests);
 
 		this.isActivated = true;
+		this.activatedClientId = Shared.clientId;
 	}
 }

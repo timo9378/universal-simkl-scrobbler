@@ -108,6 +108,25 @@ export interface ScrobblingDetails {
 
 export type StorageValuesOptionsV4 = StorageValuesOptionsV3 & {
 	loadImages: boolean;
+
+	/**
+	 * The Simkl app this install authorises against, from
+	 * https://simkl.com/settings/developer/.
+	 *
+	 * Upstream baked its Trakt credentials into the build because registering a Trakt
+	 * app was enough of a chore that asking every user to do it would have cost more
+	 * than it saved. Simkl hands one out to a free account in about two minutes, which
+	 * makes per-user credentials the better trade here: nobody's traffic is attributed
+	 * to anybody else's client_id, and Simkl suspending one id can't take out everyone
+	 * who installed the same zip.
+	 *
+	 * No client secret: the PIN flow doesn't use one, and a secret shipped inside an
+	 * extension isn't a secret.
+	 *
+	 * Empty falls back to `SIMKL_CLIENT_ID` from the build, which published releases
+	 * deliberately leave unset. See `loadOptions`.
+	 */
+	simklClientId: string;
 };
 
 export type StorageValuesOptionsV3 = Omit<StorageValuesOptionsV2, 'streamingServices'> & {
@@ -780,6 +799,12 @@ class _BrowserStorage {
 
 	async loadOptions(): Promise<void> {
 		this.optionsDetails = {
+			simklClientId: {
+				type: 'text',
+				id: 'simklClientId',
+				value: '',
+				doShow: true,
+			},
 			services: {
 				type: 'custom',
 				id: 'services',
@@ -870,6 +895,14 @@ class _BrowserStorage {
 			}
 			this.options[option.id] = option.value as never;
 		}
+
+		// Resolve the client id every request will be signed with. This has to happen
+		// here rather than at module load: `Shared.clientId` starts out as whatever the
+		// build inlined, and `init()` calls `Session.checkLogin()` immediately after
+		// this — so the user's own id must already be in place by the time anything
+		// touches the API.
+		const ownClientId = (this.options.simklClientId || '').trim();
+		Shared.clientId = ownClientId || process.env.SIMKL_CLIENT_ID || '';
 	}
 
 	saveOptions(partialOptions: PartialDeep<StorageValuesOptions>) {
@@ -976,6 +1009,15 @@ class _BrowserStorage {
 			this.optionsDetails,
 			Object.fromEntries(Object.entries(this.options).map(([id, value]) => [id, { value }]))
 		);
+		if ('simklClientId' in options) {
+			// Keep the live value in step with the saved one. Without this the user pastes
+			// a client id, sees it saved, and the next request still goes out under the old
+			// one until the extension is reloaded.
+			const ownClientId = (this.options.simklClientId || '').trim();
+			Shared.clientId = ownClientId || process.env.SIMKL_CLIENT_ID || '';
+			// The API instances notice on their own: `activate()` re-wraps its request
+			// headers whenever the id it was activated with no longer matches this one.
+		}
 	}
 
 	isOption<T, U extends OptionDetails<T, K>['type'], K extends keyof T>(

@@ -5,6 +5,7 @@ import { Shared } from '@common/Shared';
 import { OptionsListItemRoot } from '@components/OptionsListItemRoot';
 import { SelectOption } from '@components/SelectOption';
 import { SwitchOption } from '@components/SwitchOption';
+import { TextOption } from '@components/TextOption';
 import { ListItemSecondaryAction, ListItemText } from '@mui/material';
 import { useEffect, useState } from 'react';
 
@@ -72,6 +73,16 @@ export const OptionsListItem = ({ option }: OptionsListItemProps): JSX.Element =
 					value={value as string}
 					isDisabled={isDisabled}
 					choices={option.choices}
+					handleChange={handleChange}
+				/>
+			);
+			break;
+		case 'text':
+			secondaryAction = (
+				<TextOption
+					id={option.id}
+					value={value as string}
+					isDisabled={isDisabled}
 					handleChange={handleChange}
 				/>
 			);

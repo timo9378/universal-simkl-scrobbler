@@ -44,6 +44,21 @@ and load it unpacked.
 3. Temporary add-ons are removed when Firefox restarts. That's Firefox's rule for unsigned
    extensions, not something this fork can work around.
 
+### Point it at your own Simkl app
+
+Before logging in, open the extension's **Options** and paste a **Simkl client ID** into the
+first field. To get one: [simkl.com/settings/developer](https://simkl.com/settings/developer/)
+→ create an app → copy the client ID. It's free, takes about a minute, and any redirect URI
+will do (the PIN flow never uses it). There is no client secret to enter.
+
+This is deliberately not baked into the release. Upstream ships its Trakt credentials inside
+the build, because registering a Trakt app was enough of a chore that asking every user to do
+it would have cost more than it saved. Simkl hands one out in a minute, which flips the
+trade: with per-user credentials nobody's traffic is attributed to anyone else's client ID,
+and Simkl — which
+[states plainly](https://simkl.docs.apiary.io/) that misuse gets a client ID suspended —
+can't take out everyone who downloaded the same zip at once.
+
 Then click the extension icon → **Login with Simkl**. A tab opens with a login code already
 filled in; confirm it there.
 

@@ -36,24 +36,28 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # client id 是建置時內嵌的。少了它 build 還是會過，但裝起來每個 API 請求都會被
-      # Simkl 打回票——而且沒有任何錯誤訊息指向這裡。寧可在這一步就停。
-      - name: Check credentials
-        env:
-          SIMKL_CLIENT_ID: ${{ secrets.SIMKL_CLIENT_ID }}
-        run: |
-          if [ -z "$SIMKL_CLIENT_ID" ]; then
-            echo "::error::缺少 SIMKL_CLIENT_ID secret。到 https://simkl.com/settings/developer/ 建一個 app，"
-            echo "::error::然後在 repo 的 Settings → Secrets and variables → Actions 加上 SIMKL_CLIENT_ID。"
-            exit 1
-          fi
-
+      # ⚠️ 這裡刻意不注入 SIMKL_CLIENT_ID。發布的 zip 不帶任何憑證，使用者在擴充的
+      # 選項頁填自己的（simkl.com/settings/developer 免費、一分鐘）。
+      #
+      # 早期版本是把維護者的 client id 烙進 zip 的——照抄上游對 Trakt 的做法。但那在
+      # Simkl 這裡是錯的取捨：建 Trakt app 麻煩到不值得要求每個使用者做，而 Simkl 兩分鐘
+      # 就給一組。烙進去的代價是所有安裝者的流量都掛在同一組 id 上，而 Simkl 明文寫著
+      # 違規會停權 client_id——一組被停，所有下載同一份 zip 的人一起斷。
       - name: Build
         env:
-          SIMKL_CLIENT_ID: ${{ secrets.SIMKL_CLIENT_ID }}
           # 可選：Simkl 沒有圖的少數條目才會退回 TMDb。沒設就是那些條目不顯示圖。
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: pnpm run build
+
+      # 防止憑證再度被烙進發布物：任何一個 client id 長度的十六進位字串出現在 bundle
+      # 裡就中止。是回歸測試，不是清潔癖——第一版就是這樣外流的。
+      - name: Assert no credentials were bundled
+        run: |
+          if grep -rEoh '[0-9a-f]{64}' build/ | head -1 | grep -q .; then
+            echo "::error::建置產物裡出現了 64 字元的十六進位字串，可能是被內嵌的 client id。"
+            grep -rEl '[0-9a-f]{64}' build/ | head -5
+            exit 1
+          fi
 
       # build 內部就有打包（webpack.config.ts 的 runFinalSteps，production 才會做）。
       # 這裡只確認產物真的在，避免無聲地發一個空的 Release。

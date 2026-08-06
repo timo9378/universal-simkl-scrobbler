@@ -454,5 +454,14 @@
 	},
 	"yes": {
 		"message": "Jā"
+	},
+	"simklClientId": {
+		"message": "Simkl client ID."
+	},
+	"simklClientIdDescription": {
+		"message": "Create an app at simkl.com/settings/developer (free, takes a minute) and paste its client ID here. Each install authorises against its own Simkl app, so your requests are never attributed to anyone else's — and one suspended client ID can't take down everybody who downloaded the same build. No client secret is needed."
+	},
+	"missingSimklClientIdError": {
+		"message": "No Simkl client ID is set. Open the extension options and paste the client ID of an app created at simkl.com/settings/developer, then log in again."
 	}
 }

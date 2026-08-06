@@ -1,4 +1,5 @@
 import { SimklApi } from '@apis/SimklApi';
+import { I18N } from '@common/I18N';
 import { Messaging } from '@common/Messaging';
 import { Shared } from '@common/Shared';
 import { Tabs } from '@common/Tabs';
@@ -64,6 +65,13 @@ class _SimklAuth extends SimklApi {
 	 * poll until they approve it. Resolves with the stored auth details.
 	 */
 	async authorize(): Promise<SimklAuthDetails> {
+		// Without a client id Simkl answers the PIN request with a generic failure, which
+		// surfaces as "login failed" and sends people looking for the wrong problem. Say
+		// what's actually missing instead.
+		if (!Shared.clientId) {
+			throw new Error(I18N.translate('missingSimklClientIdError'));
+		}
+
 		await this.activate();
 
 		const pin = await this.requestPin();
