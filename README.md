@@ -8,16 +8,20 @@
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <a href="https://github.com/timo9378/universal-simkl-scrobbler/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/timo9378/universal-simkl-scrobbler"></a>
-  <img alt="Status: untested" src="https://img.shields.io/badge/status-builds%2C%20not%20yet%20field--tested-orange.svg">
+  <img alt="Status: Netflix movies confirmed, episodes untested" src="https://img.shields.io/badge/status-netflix%20movies%20confirmed%20%C2%B7%20episodes%20untested-orange.svg">
 </p>
 
-> **Status: the Trakt→Simkl swap is implemented; it has not been field-tested.**
+> **Status: works on Netflix for movies. Everything else is unproven.**
 >
-> Every endpoint was verified against the live Simkl API while writing it, and `tsc`, `biome`
-> and the webpack build are all clean. What hasn't happened yet is a real browser watching a
-> real episode on a real streaming service. Expect to find things — especially around episode
-> matching for anime, where absolute numbering and Simkl's AniDB-based seasons disagree with
-> what services report.
+> | | |
+> |---|---|
+> | Netflix, a movie | Confirmed end to end — the extension scrobbled it, Simkl recorded it, and a separate backend pulled it back out of `/sync/all-items`. |
+> | Episodes and seasons | Not yet seen with real data. Anime is the most likely to break: Simkl follows AniDB, and the seasons streaming services report don't always agree. |
+> | The other 28 services | Inherited from upstream untouched. None of them have been re-tested against the Simkl backend. |
+>
+> Every endpoint was checked against the live Simkl API while writing it, and `tsc`, `biome`
+> and the webpack build are clean. That is not the same as it working, which is why the
+> table above says what it says.
 
 ## Install
 
