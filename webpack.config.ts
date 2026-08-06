@@ -248,6 +248,16 @@ const getManifest = (browserName: string, isDev: boolean): string => {
 		// Simkl's PIN flow has no callback, so the only content scripts left are the
 		// per-service ones added below.
 		default_locale: 'en',
+
+		// Upstream never declared this: its options page was only reachable through the
+		// popup's gear, which was fine when every setting was optional. It stopped being
+		// fine once the Simkl client ID moved in here — that one has to be set before
+		// logging in works at all, and a setting you can't find from the browser's own
+		// extension page is a setting that doesn't exist.
+		options_ui: {
+			page: 'options.html',
+			open_in_tab: true,
+		},
 	};
 	switch (browserName) {
 		case 'chrome': {
